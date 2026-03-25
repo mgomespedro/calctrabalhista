@@ -8,10 +8,11 @@ import Ferias from './pages/Ferias'
 import DecimoTerceiro from './pages/DecimoTerceiro'
 import HorasExtras from './pages/HorasExtras'
 import SeguroDesemprego from './pages/SeguroDesemprego'
+import Comparador from './pages/Comparador'
+import Premium from './pages/Premium'
 import Sobre from './pages/Sobre'
 import Privacidade from './pages/Privacidade'
 import Termos from './pages/Termos'
-import Placeholder from './pages/Placeholder'
 
 function App() {
   return (
@@ -20,16 +21,17 @@ function App() {
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
           <Route path="rescisao" element={<Rescisao />} />
+          <Route path="rescisao/comparador" element={<Comparador />} />
           <Route path="salario-liquido" element={<SalarioLiquido />} />
           <Route path="tabelas" element={<Tabelas />} />
           <Route path="ferias" element={<Ferias />} />
           <Route path="decimo-terceiro" element={<DecimoTerceiro />} />
           <Route path="horas-extras" element={<HorasExtras />} />
           <Route path="seguro-desemprego" element={<SeguroDesemprego />} />
+          <Route path="premium" element={<Premium />} />
           <Route path="sobre" element={<Sobre />} />
           <Route path="privacidade" element={<Privacidade />} />
           <Route path="termos" element={<Termos />} />
-          <Route path="premium" element={<Placeholder title="Plano Premium" emoji="⭐" />} />
         </Route>
       </Routes>
     </BrowserRouter>

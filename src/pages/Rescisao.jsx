@@ -110,6 +110,23 @@ export default function Rescisao() {
         </p>
       </div>
 
+      {/* Banner comparador */}
+      <Link
+        to="/rescisao/comparador"
+        className="flex items-center justify-between bg-blue-500/5 hover:bg-blue-500/10 border border-blue-500/20 rounded-2xl px-5 py-4 mb-6 transition-all group"
+      >
+        <div className="flex items-start gap-3">
+          <span className="text-xl mt-0.5">⚖️</span>
+          <div>
+            <p className="text-blue-400 text-sm font-semibold">Demissão ou acordo mútuo? Qual vale mais?</p>
+            <p className="text-gray-500 text-xs mt-0.5">Compare os dois cenários lado a lado em segundos.</p>
+          </div>
+        </div>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" className="w-4 h-4 text-blue-400 group-hover:translate-x-1 transition-transform flex-shrink-0 ml-3">
+          <path fillRule="evenodd" d="M2 8a.75.75 0 0 1 .75-.75h8.69L8.22 4.03a.75.75 0 0 1 1.06-1.06l4.5 4.5a.75.75 0 0 1 0 1.06l-4.5 4.5a.75.75 0 0 1-1.06-1.06l3.22-3.22H2.75A.75.75 0 0 1 2 8Z" clipRule="evenodd" />
+        </svg>
+      </Link>
+
       {/* Form */}
       <form onSubmit={handleCalcular} className="bg-[#1a1a2e] border border-white/5 rounded-2xl p-6 sm:p-8 mb-6">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
@@ -178,25 +195,43 @@ export default function Rescisao() {
 
           {/* Data Admissão */}
           <div>
-            <label className="block text-white text-sm font-semibold mb-2">Data de Admissão</label>
+            <label className="block text-white text-sm font-semibold mb-2">Data de admissão</label>
             <input
               type="date"
               name="dataAdmissao"
               value={form.dataAdmissao}
               onChange={handleChange}
-              className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-emerald-500/50 focus:ring-1 focus:ring-emerald-500/25 transition-all [color-scheme:dark]"
+              className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-emerald-500/50 focus:ring-1 focus:ring-emerald-500/25 transition-all"
             />
           </div>
 
           {/* Data Demissão */}
           <div>
-            <label className="block text-white text-sm font-semibold mb-2">Data de Demissão</label>
+            <label className="block text-white text-sm font-semibold mb-2">Data de demissão</label>
             <input
               type="date"
               name="dataDemissao"
               value={form.dataDemissao}
               onChange={handleChange}
-              className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-emerald-500/50 focus:ring-1 focus:ring-emerald-500/25 transition-all [color-scheme:dark]"
+              className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-emerald-500/50 focus:ring-1 focus:ring-emerald-500/25 transition-all"
+            />
+          </div>
+
+          {/* Saldo FGTS */}
+          <div>
+            <label className="block text-white text-sm font-semibold mb-2">
+              Saldo do FGTS (R$)
+              <span className="text-gray-500 font-normal ml-1">(opcional)</span>
+            </label>
+            <input
+              type="number"
+              name="saldoFGTS"
+              value={form.saldoFGTS}
+              onChange={handleChange}
+              placeholder="Consulte no app FGTS"
+              step="0.01"
+              min="0"
+              className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-600 focus:outline-none focus:border-emerald-500/50 focus:ring-1 focus:ring-emerald-500/25 transition-all"
             />
           </div>
 
@@ -214,38 +249,21 @@ export default function Rescisao() {
             />
           </div>
 
-          {/* Saldo FGTS */}
-          <div>
-            <label className="block text-white text-sm font-semibold mb-2">
-              Saldo do FGTS (R$)
-              <span className="text-gray-500 font-normal ml-1">(opcional)</span>
-            </label>
-            <input
-              type="number"
-              name="saldoFGTS"
-              value={form.saldoFGTS}
-              onChange={handleChange}
-              placeholder="Ex: 15000.00"
-              step="0.01"
-              min="0"
-              className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-600 focus:outline-none focus:border-emerald-500/50 focus:ring-1 focus:ring-emerald-500/25 transition-all"
-            />
-          </div>
-
           {/* Checkboxes */}
-          <div className="sm:col-span-2 flex flex-col sm:flex-row gap-4">
-            {(form.tipoRescisao === 'sem_justa_causa' || form.tipoRescisao === 'acordo_mutuo') && (
-              <label className="flex items-center gap-3 bg-white/[0.02] border border-white/5 rounded-xl px-4 py-3 cursor-pointer hover:border-white/10 transition-all">
-                <input
-                  type="checkbox"
-                  name="avisoPrevioTrabalhado"
-                  checked={form.avisoPrevioTrabalhado}
-                  onChange={handleChange}
-                  className="accent-emerald-500 w-4 h-4"
-                />
+          <div className="sm:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <label className="flex items-center gap-3 bg-white/[0.02] border border-white/5 rounded-xl px-4 py-3 cursor-pointer hover:border-white/10 transition-all">
+              <input
+                type="checkbox"
+                name="avisoPrevioTrabalhado"
+                checked={form.avisoPrevioTrabalhado}
+                onChange={handleChange}
+                className="accent-emerald-500 w-4 h-4"
+              />
+              <div>
                 <span className="text-gray-300 text-sm">Aviso prévio trabalhado</span>
-              </label>
-            )}
+                <p className="text-gray-600 text-xs">Funcionário cumpriu o período de aviso</p>
+              </div>
+            </label>
             <label className="flex items-center gap-3 bg-white/[0.02] border border-white/5 rounded-xl px-4 py-3 cursor-pointer hover:border-white/10 transition-all">
               <input
                 type="checkbox"
@@ -254,7 +272,10 @@ export default function Rescisao() {
                 onChange={handleChange}
                 className="accent-emerald-500 w-4 h-4"
               />
-              <span className="text-gray-300 text-sm">Tenho férias vencidas</span>
+              <div>
+                <span className="text-gray-300 text-sm">Tem férias vencidas</span>
+                <p className="text-gray-600 text-xs">Período aquisitivo completo não gozado</p>
+              </div>
             </label>
           </div>
         </div>
@@ -266,7 +287,6 @@ export default function Rescisao() {
           </div>
         )}
 
-        {/* Buttons */}
         <div className="mt-6 flex flex-col sm:flex-row gap-3">
           <button
             type="submit"
