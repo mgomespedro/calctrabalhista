@@ -9,14 +9,14 @@ export default function ModalLoginPremium({ onFechar }) {
     const inputRef = useRef(null)
 
     useEffect(() => {
-        inputRef.current?.focus()
+        setTimeout(() => inputRef.current?.focus(), 50)
     }, [])
 
     async function handleSubmit() {
         if (!email.includes('@')) {
             setMensagemErro('Insira um e-mail válido.')
             setEstado('erro')
-            inputRef.current?.focus()
+            setTimeout(() => inputRef.current?.focus(), 50)
             return
         }
 
@@ -38,12 +38,12 @@ export default function ModalLoginPremium({ onFechar }) {
                 } else {
                     setMensagemErro('Não foi possível verificar. Tente novamente.')
                 }
-                inputRef.current?.focus()
+                setTimeout(() => inputRef.current?.focus(), 50)
             }
         } catch {
             setEstado('erro')
             setMensagemErro('Erro de ligação. Verifique a sua internet e tente novamente.')
-            inputRef.current?.focus()
+            setTimeout(() => inputRef.current?.focus(), 50)
         }
     }
 
