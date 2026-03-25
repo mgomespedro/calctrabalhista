@@ -48,7 +48,9 @@ export default async function handler(req, res) {
                 return res.status(200).json({
                     premium: true,
                     plano: subAtiva.items.data[0]?.price?.recurring?.interval === 'year' ? 'anual' : 'mensal',
-                    validade: new Date(subAtiva.current_period_end * 1000).toISOString(),
+                    validade: subAtiva.current_period_end
+                        ? new Date(subAtiva.current_period_end * 1000).toISOString()
+                        : null,
                     email: email.toLowerCase(),
                 })
             }
