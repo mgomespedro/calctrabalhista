@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { calcularINSS, calcularIRRF, formatarMoeda, ANO, TABELAS } from '../utils/calculos'
+import { exportarDecimoTerceiroPDF } from '../utils/exportarPDF'
 
 export default function DecimoTerceiro() {
   const [form, setForm] = useState({
@@ -259,20 +260,40 @@ export default function DecimoTerceiro() {
             </p>
           </div>
 
-          {/* Premium CTA */}
+          {/* Exportar PDF + Premium CTA */}
           <div className="bg-gradient-to-r from-amber-500/10 to-orange-500/10 border border-amber-500/20 rounded-2xl p-6 text-center">
-            <div className="text-2xl mb-2">⭐</div>
-            <h3 className="text-white font-bold text-lg mb-1">Quer o resultado completo?</h3>
+            <div className="text-2xl mb-2">📄</div>
+            <h3 className="text-white font-bold text-lg mb-1">Exportar Resultado em PDF</h3>
             <p className="text-gray-400 text-sm mb-4">
-              Exporte em PDF profissional e veja a simulação com diferentes cenários de meses trabalhados.
+              Baixe um relatório profissional com todos os detalhes do seu 13º salário.
             </p>
-            <Link
-              to="/premium"
-              className="inline-flex items-center gap-2 bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-white font-semibold px-6 py-2.5 rounded-xl shadow-lg shadow-amber-500/20 transition-all text-sm"
+            <button
+              type="button"
+              onClick={() => exportarDecimoTerceiroPDF(form, resultado)}
+              className="inline-flex items-center gap-2 bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-400 hover:to-emerald-500 text-white font-semibold px-6 py-2.5 rounded-xl shadow-lg shadow-emerald-500/20 transition-all text-sm mb-4"
             >
-              Conhecer o Premium
-            </Link>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-4 h-4">
+                <path d="M10.75 2.75a.75.75 0 0 0-1.5 0v8.614L6.295 8.235a.75.75 0 1 0-1.09 1.03l4.25 4.5a.75.75 0 0 0 1.09 0l4.25-4.5a.75.75 0 0 0-1.09-1.03l-2.955 3.129V2.75Z" />
+                <path d="M3.5 12.75a.75.75 0 0 0-1.5 0v2.5A2.75 2.75 0 0 0 4.75 18h10.5A2.75 2.75 0 0 0 18 15.25v-2.5a.75.75 0 0 0-1.5 0v2.5c0 .69-.56 1.25-1.25 1.25H4.75c-.69 0-1.25-.56-1.25-1.25v-2.5Z" />
+              </svg>
+              Baixar PDF Grátis
+            </button>
+            <div className="border-t border-white/10 pt-4 mt-2">
+              <p className="text-gray-500 text-xs mb-3">
+                ⭐ Quer ainda mais? Compare cenários, exporte Excel e acesse o histórico completo.
+              </p>
+              <Link
+                to="/premium"
+                className="inline-flex items-center gap-2 text-amber-400 hover:text-amber-300 font-medium text-sm transition-colors"
+              >
+                Conhecer o Premium
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" className="w-4 h-4">
+                  <path fillRule="evenodd" d="M2 8a.75.75 0 0 1 .75-.75h8.69L8.22 4.03a.75.75 0 0 1 1.06-1.06l4.5 4.5a.75.75 0 0 1 0 1.06l-4.5 4.5a.75.75 0 0 1-1.06-1.06l3.22-3.22H2.75A.75.75 0 0 1 2 8Z" clipRule="evenodd" />
+                </svg>
+              </Link>
+            </div>
           </div>
+
         </div>
       )}
     </div>
