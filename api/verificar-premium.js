@@ -3,18 +3,12 @@ export const config = {
 }
 
 export default async function handler(req, res) {
-    // CORS
     res.setHeader('Access-Control-Allow-Origin', '*')
     res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS')
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type')
 
-    if (req.method === 'OPTIONS') {
-        return res.status(200).end()
-    }
-
-    if (req.method !== 'POST') {
-        return res.status(405).json({ erro: 'Método não permitido' })
-    }
+    if (req.method === 'OPTIONS') return res.status(200).end()
+    if (req.method !== 'POST') return res.status(405).json({ erro: 'Método não permitido' })
 
     const { email } = req.body
 
@@ -31,13 +25,8 @@ export default async function handler(req, res) {
     try {
         const clientesRes = await fetch(
             `https://api.stripe.com/v1/customers?email=${encodeURIComponent(email)}&limit=5`,
-            {
-                headers: {
-                    Authorization: `Bearer ${STRIPE_SECRET_KEY}`,
-                },
-            }
+            { headers: { Authorization: `Bearer ${STRIPE_SECRET_KEY}` } }
         )
-
         const clientesData = await clientesRes.json()
 
         if (!clientesData.data || clientesData.data.length === 0) {
@@ -46,22 +35,20 @@ export default async function handler(req, res) {
 
         for (const cliente of clientesData.data) {
             const subsRes = await fetch(
-                `https://api.stripe.com/v1/subscriptions?customer=${cliente.id}&status=active&limit=1`,
-                {
-                    headers: {
-                        Authorization: `Bearer ${STRIPE_SECRET_KEY}`,
-                    },
-                }
+                `https://api.stripe.com/v1/subscriptions?customer=${cliente.id}&limit=10`,
+                { headers: { Authorization: `Bearer ${STRIPE_SECRET_KEY}` } }
             )
-
             const subsData = await subsRes.json()
 
-            if (subsData.data && subsData.data.length > 0) {
-                const sub = subsData.data[0]
+            const subAtiva = subsData.data?.find(
+                s => s.status === 'active' || s.status === 'trialing'
+            )
+
+            if (subAtiva) {
                 return res.status(200).json({
                     premium: true,
-                    plano: sub.items.data[0]?.price?.recurring?.interval === 'year' ? 'anual' : 'mensal',
-                    validade: new Date(sub.current_period_end * 1000).toISOString(),
+                    plano: subAtiva.items.data[0]?.price?.recurring?.interval === 'year' ? 'anual' : 'mensal',
+                    validade: new Date(subAtiva.current_period_end * 1000).toISOString(),
                     email: email.toLowerCase(),
                 })
             }
