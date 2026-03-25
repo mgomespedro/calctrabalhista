@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import AdBanner from '../components/AdBanner'
 import { ANO, TABELAS, formatarMoeda } from '../utils/calculos'
 
 const calculadoras = [
@@ -102,6 +103,9 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Anúncio entre hero e calculadoras */}
+      <AdBanner slot="home-top" />
+
       {/* Calculator Cards */}
       <section className="max-w-6xl mx-auto px-4 pb-20">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -139,6 +143,9 @@ export default function Home() {
             </Link>
           ))}
         </div>
+
+        {/* Anúncio após calculadoras */}
+        <AdBanner slot="home-bottom" className="mt-8" />
 
         {/* Trust bar */}
         <div className="mt-12 flex flex-wrap items-center justify-center gap-6 text-gray-600 text-sm">

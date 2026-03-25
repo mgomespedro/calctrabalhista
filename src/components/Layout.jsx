@@ -1,6 +1,7 @@
 import { Outlet } from 'react-router-dom'
-import Header from './Header'
+import AdBanner from './AdBanner'
 import Footer from './Footer'
+import Header from './Header'
 
 export default function Layout() {
   return (
@@ -8,6 +9,7 @@ export default function Layout() {
       <Header />
       <main className="flex-1">
         <Outlet />
+        <AdBanner slot="footer-banner" />
       </main>
       <Footer />
     </div>
