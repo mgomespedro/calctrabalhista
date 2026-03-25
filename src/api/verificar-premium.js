@@ -1,0 +1,63 @@
+export default async function handler(req, res) {
+    if (req.method !== 'POST') {
+        return res.status(405).json({ erro: 'Método não permitido' })
+    }
+
+    const { email } = req.body
+
+    if (!email || !email.includes('@')) {
+        return res.status(400).json({ erro: 'E-mail inválido' })
+    }
+
+    const STRIPE_SECRET_KEY = process.env.STRIPE_SECRET_KEY
+
+    if (!STRIPE_SECRET_KEY) {
+        return res.status(500).json({ erro: 'Configuração interna inválida' })
+    }
+
+    try {
+        const clientesRes = await fetch(
+            `https://api.stripe.com/v1/customers?email=${encodeURIComponent(email)}&limit=5`,
+            {
+                headers: {
+                    Authorization: `Bearer ${STRIPE_SECRET_KEY}`,
+                },
+            }
+        )
+
+        const clientesData = await clientesRes.json()
+
+        if (!clientesData.data || clientesData.data.length === 0) {
+            return res.status(200).json({ premium: false, motivo: 'email_nao_encontrado' })
+        }
+
+        for (const cliente of clientesData.data) {
+            const subsRes = await fetch(
+                `https://api.stripe.com/v1/subscriptions?customer=${cliente.id}&status=active&limit=1`,
+                {
+                    headers: {
+                        Authorization: `Bearer ${STRIPE_SECRET_KEY}`,
+                    },
+                }
+            )
+
+            const subsData = await subsRes.json()
+
+            if (subsData.data && subsData.data.length > 0) {
+                const sub = subsData.data[0]
+                return res.status(200).json({
+                    premium: true,
+                    plano: sub.items.data[0]?.price?.recurring?.interval === 'year' ? 'anual' : 'mensal',
+                    validade: new Date(sub.current_period_end * 1000).toISOString(),
+                    email: email.toLowerCase(),
+                })
+            }
+        }
+
+        return res.status(200).json({ premium: false, motivo: 'sem_subscricao_ativa' })
+
+    } catch (err) {
+        console.error('Erro ao verificar Stripe:', err)
+        return res.status(500).json({ erro: 'Erro ao verificar subscrição' })
+    }
+}
