@@ -6,23 +6,147 @@
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <!-- SEO -->
+  <!-- SEO Primário -->
   <title>CalcTrabalhista — Calculadora Trabalhista 2026 | Rescisão, Férias, Salário Líquido</title>
   <meta name="description"
     content="Calcule grátis sua rescisão trabalhista, salário líquido, férias, 13º salário, horas extras e seguro-desemprego. Tabelas INSS e IRRF 2026 atualizadas com nova isenção IR até R$ 5.000." />
   <meta name="keywords"
-    content="calculadora trabalhista 2026, calcular rescisão, salário líquido, férias CLT, 13º salário, horas extras, seguro desemprego, INSS 2026, IRRF 2026, isenção IR 5000" />
+    content="calculadora trabalhista 2026, calcular rescisão, salário líquido, férias CLT, 13º salário, horas extras, seguro desemprego, INSS 2026, IRRF 2026, isenção IR 5000, acordo mútuo 484-A, aviso prévio, FGTS multa" />
   <meta name="robots" content="index, follow" />
   <meta name="author" content="CalcTrabalhista" />
+  <meta name="theme-color" content="#10b981" />
   <link rel="canonical" href="https://calctrabalhista.vercel.app/" />
 
-  <!-- Open Graph (partilha em redes sociais) -->
+  <!-- Open Graph (Facebook, WhatsApp, LinkedIn) -->
   <meta property="og:title" content="CalcTrabalhista — Calculadora Trabalhista 2026" />
   <meta property="og:description"
-    content="Calcule grátis sua rescisão, férias, salário líquido e muito mais. Tabelas 2026 atualizadas!" />
+    content="Calcule grátis sua rescisão, férias, salário líquido e muito mais. Tabelas 2026 atualizadas com nova isenção de IR até R$ 5.000!" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://calctrabalhista.vercel.app/" />
   <meta property="og:locale" content="pt_BR" />
+  <meta property="og:site_name" content="CalcTrabalhista" />
+  <meta property="og:image" content="https://calctrabalhista.vercel.app/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="CalcTrabalhista — Calculadora Trabalhista 2026 gratuita" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="CalcTrabalhista — Calculadora Trabalhista 2026" />
+  <meta name="twitter:description"
+    content="Calcule grátis sua rescisão, férias, salário líquido e muito mais. Tabelas 2026 atualizadas!" />
+  <meta name="twitter:image" content="https://calctrabalhista.vercel.app/og-image.png" />
+
+  <!-- Schema JSON-LD: WebApplication -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "CalcTrabalhista",
+    "url": "https://calctrabalhista.vercel.app/",
+    "description": "Calculadora trabalhista gratuita com tabelas 2026 atualizadas. Calcule rescisão, salário líquido, férias, 13º salário, horas extras e seguro-desemprego.",
+    "applicationCategory": "FinanceApplication",
+    "operatingSystem": "Web",
+    "inLanguage": "pt-BR",
+    "isAccessibleForFree": true,
+    "offers": [
+      {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "BRL",
+        "description": "Plano gratuito com 6 calculadoras trabalhistas"
+      },
+      {
+        "@type": "Offer",
+        "price": "9.90",
+        "priceCurrency": "BRL",
+        "description": "Plano Premium mensal com PDF profissional e histórico de simulações"
+      }
+    ],
+    "featureList": [
+      "Calculadora de Rescisão Trabalhista",
+      "Calculadora de Salário Líquido com nova isenção IR 2026",
+      "Calculadora de Férias e Abono Pecuniário",
+      "Calculadora de 13º Salário",
+      "Calculadora de Horas Extras com DSR",
+      "Calculadora de Seguro-Desemprego",
+      "Comparador Demissão vs Acordo Mútuo",
+      "Exportação de relatórios em PDF"
+    ],
+    "screenshot": "https://calctrabalhista.vercel.app/og-image.png",
+    "publisher": {
+      "@type": "Organization",
+      "name": "CalcTrabalhista",
+      "url": "https://calctrabalhista.vercel.app/"
+    }
+  }
+  </script>
+
+  <!-- Schema JSON-LD: FAQPage -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Como calcular a rescisão trabalhista em 2026?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Para calcular a rescisão trabalhista em 2026, some as verbas rescisórias: saldo de salário, aviso prévio indenizado, férias proporcionais + 1/3, 13º proporcional e FGTS com multa. Subtraia os descontos de INSS e IRRF sobre as verbas remuneratórias. Use nossa calculadora gratuita para obter o resultado em segundos."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Quem está isento de Imposto de Renda em 2026?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Em 2026, pela Lei nº 15.270/2025, trabalhadores com renda mensal de até R$ 5.000,00 estão isentos de Imposto de Renda. Para rendas entre R$ 5.000,01 e R$ 7.350,00 há redução gradual do IR (redutor progressivo)."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Qual a diferença entre demissão sem justa causa e acordo mútuo?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Na demissão sem justa causa, o trabalhador recebe aviso prévio integral, multa de 40% do FGTS e pode sacar todo o saldo. No acordo mútuo (art. 484-A da CLT), o aviso prévio é reduzido à metade, a multa do FGTS cai para 20% e o saque é limitado a 80% do saldo. Além disso, no acordo mútuo não há direito ao seguro-desemprego."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Qual a tabela do INSS 2026?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "A tabela progressiva do INSS 2026 é: até R$ 1.621,00 = 7,5%; de R$ 1.621,01 a R$ 2.902,84 = 9%; de R$ 2.902,85 a R$ 4.354,27 = 12%; de R$ 4.354,28 a R$ 8.475,55 = 14%. O teto de contribuição é R$ 8.475,55."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Como calcular o seguro-desemprego em 2026?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "O seguro-desemprego é calculado com base na média dos últimos 3 salários. O número de parcelas varia de 3 a 5 conforme o tempo trabalhado e quantas vezes já foi solicitado. Apenas trabalhadores demitidos sem justa causa têm direito ao benefício."
+        }
+      }
+    ]
+  }
+  </script>
+
+  <!-- Schema JSON-LD: BreadcrumbList (página principal) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "CalcTrabalhista",
+        "item": "https://calctrabalhista.vercel.app/"
+      }
+    ]
+  }
+  </script>
 
   <!-- Google AdSense -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9304954380246664"
