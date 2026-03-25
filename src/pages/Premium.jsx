@@ -2,6 +2,11 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { ANO } from '../utils/calculos'
 
+const STRIPE_LINKS = {
+  mensal: 'https://buy.stripe.com/14AbJ39Utabr11ago27g407',
+  anual: 'https://buy.stripe.com/cNi28t9Ut2IZ7pyfjY7g408',
+}
+
 const FEATURES_GRATIS = [
   '6 calculadoras trabalhistas',
   'Tabelas oficiais atualizadas',
@@ -68,6 +73,7 @@ export default function Premium() {
   const [planoSelecionado, setPlanoSelecionado] = useState('anual')
 
   const plano = PLANOS.find(p => p.id === planoSelecionado)
+  const stripeLink = STRIPE_LINKS[planoSelecionado]
 
   return (
     <div className="max-w-5xl mx-auto px-4 py-8 sm:py-12">
@@ -160,7 +166,9 @@ export default function Premium() {
 
       {/* CTA principal */}
       <div className="bg-gradient-to-r from-amber-500/10 to-orange-500/10 border border-amber-500/20 rounded-2xl p-8 text-center mb-12">
-        <p className="text-gray-400 text-sm mb-1">Plano selecionado: <strong className="text-white">{plano.nome}</strong></p>
+        <p className="text-gray-400 text-sm mb-1">
+          Plano selecionado: <strong className="text-white">{plano.nome}</strong>
+        </p>
         <p className="text-4xl font-extrabold text-white mb-1">
           R$ {plano.preco.toFixed(2).replace('.', ',')}
           <span className="text-gray-500 text-lg font-normal">/{plano.periodo}</span>
@@ -170,10 +178,11 @@ export default function Premium() {
         )}
         {!plano.economia && <div className="mb-4" />}
 
-        {/* Botão — href será substituído pelo link Hotmart */}
+        {/* Botão Stripe */}
         <a
-          href="#"
-          onClick={e => { e.preventDefault(); alert('Gateway de pagamento em breve!') }}
+          href={stripeLink}
+          target="_blank"
+          rel="noopener noreferrer"
           className="inline-flex items-center gap-2 bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-black font-bold px-10 py-4 rounded-xl shadow-lg shadow-amber-500/25 hover:shadow-amber-500/40 transition-all duration-200 text-base"
         >
           Assinar Agora — R$ {plano.preco.toFixed(2).replace('.', ',')}
@@ -182,7 +191,18 @@ export default function Premium() {
           </svg>
         </a>
 
-        <div className="flex items-center justify-center gap-5 mt-5 text-gray-600 text-xs">
+        {/* Métodos de pagamento aceites */}
+        <div className="flex items-center justify-center gap-2 mt-4 mb-2">
+          <span className="text-gray-600 text-xs">Pagamento via</span>
+          <div className="flex items-center gap-2">
+            <span className="bg-white/5 border border-white/10 rounded px-2 py-0.5 text-[10px] text-gray-400 font-medium">Cartão</span>
+            <span className="bg-white/5 border border-white/10 rounded px-2 py-0.5 text-[10px] text-gray-400 font-medium">Pix</span>
+            <span className="bg-white/5 border border-white/10 rounded px-2 py-0.5 text-[10px] text-gray-400 font-medium">Apple Pay</span>
+            <span className="bg-white/5 border border-white/10 rounded px-2 py-0.5 text-[10px] text-gray-400 font-medium">Google Pay</span>
+          </div>
+        </div>
+
+        <div className="flex items-center justify-center gap-5 mt-3 text-gray-600 text-xs">
           <span className="flex items-center gap-1">
             <svg className="w-3.5 h-3.5 text-emerald-500/60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
@@ -197,9 +217,9 @@ export default function Premium() {
           </span>
           <span className="flex items-center gap-1">
             <svg className="w-3.5 h-3.5 text-emerald-500/60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
             </svg>
-            Cartão, Pix ou boleto
+            Cancele quando quiser
           </span>
         </div>
       </div>
@@ -267,8 +287,9 @@ export default function Premium() {
         <p className="text-gray-500 text-sm mb-4">Ainda em dúvida? O plano gratuito continua disponível para sempre.</p>
         <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
           <a
-            href="#"
-            onClick={e => { e.preventDefault(); alert('Gateway de pagamento em breve!') }}
+            href={stripeLink}
+            target="_blank"
+            rel="noopener noreferrer"
             className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-black font-bold px-8 py-3.5 rounded-xl shadow-lg shadow-amber-500/25 transition-all duration-200 text-base"
           >
             Assinar Premium
