@@ -49,8 +49,8 @@ export default function Header() {
                   key={item.path}
                   to={item.path}
                   className={`px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${location.pathname === item.path
-                      ? 'bg-emerald-500/15 text-emerald-400'
-                      : 'text-gray-400 hover:text-white hover:bg-white/5'
+                    ? 'bg-emerald-500/15 text-emerald-400'
+                    : 'text-gray-400 hover:text-white hover:bg-white/5'
                     }`}
                 >
                   {item.name}
@@ -129,8 +129,8 @@ export default function Header() {
                     to={item.path}
                     onClick={() => setMenuOpen(false)}
                     className={`px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 ${location.pathname === item.path
-                        ? 'bg-emerald-500/15 text-emerald-400'
-                        : 'text-gray-400 hover:text-white hover:bg-white/5'
+                      ? 'bg-emerald-500/15 text-emerald-400'
+                      : 'text-gray-400 hover:text-white hover:bg-white/5'
                       }`}
                   >
                     {item.name}
