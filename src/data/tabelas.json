@@ -1,0 +1,2677 @@
+{
+  "2026": {
+    "atualizadoEm": "2026-01-12",
+    "fontes": [
+      {
+        "nome": "Portaria Interministerial MPS/MF nº 13/2026 — Tabela INSS",
+        "url": "https://www.gov.br/previdencia/pt-br/assuntos/rpps/destaques/publicada-a-portaria-interministerial-mps-mf-no-13-de-9-01-2026-que-dispoe-sobre-o-reajuste-dos-beneficios-pagos-pelo-inss-e-demais-valores"
+      },
+      {
+        "nome": "Tabela de contribuição mensal INSS — Site oficial",
+        "url": "https://www.gov.br/inss/pt-br/direitos-e-deveres/inscricao-e-contribuicao/tabela-de-contribuicao-mensal"
+      },
+      {
+        "nome": "Lei nº 15.270/2025 — Isenção de IR até R$ 5.000",
+        "url": "https://www.planalto.gov.br/ccivil_03/_ato2023-2026/2025/lei/l15270.htm"
+      },
+      {
+        "nome": "Nova tabela do IR 2026 — Ministério da Fazenda",
+        "url": "https://www.gov.br/fazenda/pt-br/assuntos/noticias/2026/janeiro/receita-divulga-nova-tabela-do-irpf-com-as-mudancas-apos-isencao-para-quem-ganha-ate-r-5-mil"
+      },
+      {
+        "nome": "Reajuste INSS 2026 — Teto R$ 8.475,55",
+        "url": "https://www.gov.br/inss/pt-br/assuntos/com-reajuste-de-3-9-teto-do-inss-chega-a-r-8-475-55-em-2026"
+      },
+      {
+        "nome": "Seguro-Desemprego 2026 — Ministério do Trabalho e Emprego",
+        "url": "https://www.gov.br/trabalho-e-emprego/pt-br/noticias-e-conteudo/2026/janeiro/mte-reajusta-valores-do-beneficio-seguro-desemprego"
+      }
+    ],
+    "salarioMinimo": 1621.0,
+    "tetoINSS": 8475.55,
+    "descontoMaximoINSS": 988.09,
+    "deducaoDependenteIR": 189.59,
+    "salarioFamilia": {
+      "valor": 67.54,
+      "limiteRemuneracao": 1980.38
+    },
+    "fgtsPercentual": 0.08,
+    "multaFGTSSemJustaCausa": 0.4,
+    "multaFGTSAcordoMutuo": 0.2,
+    "avisoPrevio": {
+      "diasBase": 30,
+      "diasPorAno": 3,
+      "maximo": 90
+    },
+    "inss": [
+      {
+        "min": 0,
+        "max": 1621.0,
+        "aliquota": 0.075,
+        "deducao": 0
+      },
+      {
+        "min": 1621.01,
+        "max": 2902.84,
+        "aliquota": 0.09,
+        "deducao": 24.32
+      },
+      {
+        "min": 2902.85,
+        "max": 4354.27,
+        "aliquota": 0.12,
+        "deducao": 111.4
+      },
+      {
+        "min": 4354.28,
+        "max": 8475.55,
+        "aliquota": 0.14,
+        "deducao": 198.49
+      }
+    ],
+    "irrf": [
+      {
+        "min": 0,
+        "max": 2259.2,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 2259.21,
+        "max": 2826.65,
+        "aliquota": 0.075,
+        "deducao": 169.44
+      },
+      {
+        "min": 2826.66,
+        "max": 3751.05,
+        "aliquota": 0.15,
+        "deducao": 381.44
+      },
+      {
+        "min": 3751.06,
+        "max": 4664.68,
+        "aliquota": 0.225,
+        "deducao": 662.77
+      },
+      {
+        "min": 4664.69,
+        "max": 999999999,
+        "aliquota": 0.275,
+        "deducao": 896.0
+      }
+    ],
+    "redutorIR": {
+      "isencaoAte": 5000.0,
+      "reducaoAte": 7350.0
+    },
+    "seguroDesemprego": {
+      "faixas": [
+        {
+          "min": 0,
+          "max": 2222.17,
+          "tipo": "percentual",
+          "percentual": 0.8
+        },
+        {
+          "min": 2222.18,
+          "max": 3703.99,
+          "tipo": "formula",
+          "percentual": 0.5,
+          "valorFixo": 1777.74
+        },
+        {
+          "min": 3704.00,
+          "max": 999999999,
+          "tipo": "fixo",
+          "valorFixo": 2518.65
+        }
+      ],
+      "minimoParcelaValor": 1621.0
+    }
+  },
+  "2027": {
+    "atualizadoEm": "",
+    "fontes": [],
+    "salarioMinimo": 0,
+    "tetoINSS": 0,
+    "descontoMaximoINSS": 0,
+    "deducaoDependenteIR": 0,
+    "salarioFamilia": {
+      "valor": 0,
+      "limiteRemuneracao": 0
+    },
+    "fgtsPercentual": 0,
+    "multaFGTSSemJustaCausa": 0,
+    "multaFGTSAcordoMutuo": 0,
+    "avisoPrevio": {
+      "diasBase": 0,
+      "diasPorAno": 0,
+      "maximo": 0
+    },
+    "inss": [
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      }
+    ],
+    "irrf": [
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      }
+    ],
+    "redutorIR": {
+      "isencaoAte": 0,
+      "reducaoAte": 0
+    },
+    "seguroDesemprego": {
+      "faixas": [
+        {
+          "min": 0,
+          "max": 0,
+          "tipo": "percentual",
+          "percentual": 0
+        },
+        {
+          "min": 0,
+          "max": 0,
+          "tipo": "formula",
+          "percentual": 0,
+          "valorFixo": 0
+        },
+        {
+          "min": 0,
+          "max": 0,
+          "tipo": "fixo",
+          "valorFixo": 0
+        }
+      ],
+      "minimoParcelaValor": 0
+    }
+  },
+  "2028": {
+    "atualizadoEm": "",
+    "fontes": [],
+    "salarioMinimo": 0,
+    "tetoINSS": 0,
+    "descontoMaximoINSS": 0,
+    "deducaoDependenteIR": 0,
+    "salarioFamilia": {
+      "valor": 0,
+      "limiteRemuneracao": 0
+    },
+    "fgtsPercentual": 0,
+    "multaFGTSSemJustaCausa": 0,
+    "multaFGTSAcordoMutuo": 0,
+    "avisoPrevio": {
+      "diasBase": 0,
+      "diasPorAno": 0,
+      "maximo": 0
+    },
+    "inss": [
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      }
+    ],
+    "irrf": [
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      }
+    ],
+    "redutorIR": {
+      "isencaoAte": 0,
+      "reducaoAte": 0
+    },
+    "seguroDesemprego": {
+      "faixas": [
+        {
+          "min": 0,
+          "max": 0,
+          "tipo": "percentual",
+          "percentual": 0
+        },
+        {
+          "min": 0,
+          "max": 0,
+          "tipo": "formula",
+          "percentual": 0,
+          "valorFixo": 0
+        },
+        {
+          "min": 0,
+          "max": 0,
+          "tipo": "fixo",
+          "valorFixo": 0
+        }
+      ],
+      "minimoParcelaValor": 0
+    }
+  },
+  "2029": {
+    "atualizadoEm": "",
+    "fontes": [],
+    "salarioMinimo": 0,
+    "tetoINSS": 0,
+    "descontoMaximoINSS": 0,
+    "deducaoDependenteIR": 0,
+    "salarioFamilia": {
+      "valor": 0,
+      "limiteRemuneracao": 0
+    },
+    "fgtsPercentual": 0,
+    "multaFGTSSemJustaCausa": 0,
+    "multaFGTSAcordoMutuo": 0,
+    "avisoPrevio": {
+      "diasBase": 0,
+      "diasPorAno": 0,
+      "maximo": 0
+    },
+    "inss": [
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      }
+    ],
+    "irrf": [
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      }
+    ],
+    "redutorIR": {
+      "isencaoAte": 0,
+      "reducaoAte": 0
+    },
+    "seguroDesemprego": {
+      "faixas": [
+        {
+          "min": 0,
+          "max": 0,
+          "tipo": "percentual",
+          "percentual": 0
+        },
+        {
+          "min": 0,
+          "max": 0,
+          "tipo": "formula",
+          "percentual": 0,
+          "valorFixo": 0
+        },
+        {
+          "min": 0,
+          "max": 0,
+          "tipo": "fixo",
+          "valorFixo": 0
+        }
+      ],
+      "minimoParcelaValor": 0
+    }
+  },
+  "2030": {
+    "atualizadoEm": "",
+    "fontes": [],
+    "salarioMinimo": 0,
+    "tetoINSS": 0,
+    "descontoMaximoINSS": 0,
+    "deducaoDependenteIR": 0,
+    "salarioFamilia": {
+      "valor": 0,
+      "limiteRemuneracao": 0
+    },
+    "fgtsPercentual": 0,
+    "multaFGTSSemJustaCausa": 0,
+    "multaFGTSAcordoMutuo": 0,
+    "avisoPrevio": {
+      "diasBase": 0,
+      "diasPorAno": 0,
+      "maximo": 0
+    },
+    "inss": [
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      }
+    ],
+    "irrf": [
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      }
+    ],
+    "redutorIR": {
+      "isencaoAte": 0,
+      "reducaoAte": 0
+    },
+    "seguroDesemprego": {
+      "faixas": [
+        {
+          "min": 0,
+          "max": 0,
+          "tipo": "percentual",
+          "percentual": 0
+        },
+        {
+          "min": 0,
+          "max": 0,
+          "tipo": "formula",
+          "percentual": 0,
+          "valorFixo": 0
+        },
+        {
+          "min": 0,
+          "max": 0,
+          "tipo": "fixo",
+          "valorFixo": 0
+        }
+      ],
+      "minimoParcelaValor": 0
+    }
+  },
+  "2031": {
+    "atualizadoEm": "",
+    "fontes": [],
+    "salarioMinimo": 0,
+    "tetoINSS": 0,
+    "descontoMaximoINSS": 0,
+    "deducaoDependenteIR": 0,
+    "salarioFamilia": {
+      "valor": 0,
+      "limiteRemuneracao": 0
+    },
+    "fgtsPercentual": 0,
+    "multaFGTSSemJustaCausa": 0,
+    "multaFGTSAcordoMutuo": 0,
+    "avisoPrevio": {
+      "diasBase": 0,
+      "diasPorAno": 0,
+      "maximo": 0
+    },
+    "inss": [
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      }
+    ],
+    "irrf": [
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      }
+    ],
+    "redutorIR": {
+      "isencaoAte": 0,
+      "reducaoAte": 0
+    },
+    "seguroDesemprego": {
+      "faixas": [
+        {
+          "min": 0,
+          "max": 0,
+          "tipo": "percentual",
+          "percentual": 0
+        },
+        {
+          "min": 0,
+          "max": 0,
+          "tipo": "formula",
+          "percentual": 0,
+          "valorFixo": 0
+        },
+        {
+          "min": 0,
+          "max": 0,
+          "tipo": "fixo",
+          "valorFixo": 0
+        }
+      ],
+      "minimoParcelaValor": 0
+    }
+  },
+  "2032": {
+    "atualizadoEm": "",
+    "fontes": [],
+    "salarioMinimo": 0,
+    "tetoINSS": 0,
+    "descontoMaximoINSS": 0,
+    "deducaoDependenteIR": 0,
+    "salarioFamilia": {
+      "valor": 0,
+      "limiteRemuneracao": 0
+    },
+    "fgtsPercentual": 0,
+    "multaFGTSSemJustaCausa": 0,
+    "multaFGTSAcordoMutuo": 0,
+    "avisoPrevio": {
+      "diasBase": 0,
+      "diasPorAno": 0,
+      "maximo": 0
+    },
+    "inss": [
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      }
+    ],
+    "irrf": [
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      }
+    ],
+    "redutorIR": {
+      "isencaoAte": 0,
+      "reducaoAte": 0
+    },
+    "seguroDesemprego": {
+      "faixas": [
+        {
+          "min": 0,
+          "max": 0,
+          "tipo": "percentual",
+          "percentual": 0
+        },
+        {
+          "min": 0,
+          "max": 0,
+          "tipo": "formula",
+          "percentual": 0,
+          "valorFixo": 0
+        },
+        {
+          "min": 0,
+          "max": 0,
+          "tipo": "fixo",
+          "valorFixo": 0
+        }
+      ],
+      "minimoParcelaValor": 0
+    }
+  },
+  "2033": {
+    "atualizadoEm": "",
+    "fontes": [],
+    "salarioMinimo": 0,
+    "tetoINSS": 0,
+    "descontoMaximoINSS": 0,
+    "deducaoDependenteIR": 0,
+    "salarioFamilia": {
+      "valor": 0,
+      "limiteRemuneracao": 0
+    },
+    "fgtsPercentual": 0,
+    "multaFGTSSemJustaCausa": 0,
+    "multaFGTSAcordoMutuo": 0,
+    "avisoPrevio": {
+      "diasBase": 0,
+      "diasPorAno": 0,
+      "maximo": 0
+    },
+    "inss": [
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      }
+    ],
+    "irrf": [
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      }
+    ],
+    "redutorIR": {
+      "isencaoAte": 0,
+      "reducaoAte": 0
+    },
+    "seguroDesemprego": {
+      "faixas": [
+        {
+          "min": 0,
+          "max": 0,
+          "tipo": "percentual",
+          "percentual": 0
+        },
+        {
+          "min": 0,
+          "max": 0,
+          "tipo": "formula",
+          "percentual": 0,
+          "valorFixo": 0
+        },
+        {
+          "min": 0,
+          "max": 0,
+          "tipo": "fixo",
+          "valorFixo": 0
+        }
+      ],
+      "minimoParcelaValor": 0
+    }
+  },
+  "2034": {
+    "atualizadoEm": "",
+    "fontes": [],
+    "salarioMinimo": 0,
+    "tetoINSS": 0,
+    "descontoMaximoINSS": 0,
+    "deducaoDependenteIR": 0,
+    "salarioFamilia": {
+      "valor": 0,
+      "limiteRemuneracao": 0
+    },
+    "fgtsPercentual": 0,
+    "multaFGTSSemJustaCausa": 0,
+    "multaFGTSAcordoMutuo": 0,
+    "avisoPrevio": {
+      "diasBase": 0,
+      "diasPorAno": 0,
+      "maximo": 0
+    },
+    "inss": [
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      }
+    ],
+    "irrf": [
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      }
+    ],
+    "redutorIR": {
+      "isencaoAte": 0,
+      "reducaoAte": 0
+    },
+    "seguroDesemprego": {
+      "faixas": [
+        {
+          "min": 0,
+          "max": 0,
+          "tipo": "percentual",
+          "percentual": 0
+        },
+        {
+          "min": 0,
+          "max": 0,
+          "tipo": "formula",
+          "percentual": 0,
+          "valorFixo": 0
+        },
+        {
+          "min": 0,
+          "max": 0,
+          "tipo": "fixo",
+          "valorFixo": 0
+        }
+      ],
+      "minimoParcelaValor": 0
+    }
+  },
+  "2035": {
+    "atualizadoEm": "",
+    "fontes": [],
+    "salarioMinimo": 0,
+    "tetoINSS": 0,
+    "descontoMaximoINSS": 0,
+    "deducaoDependenteIR": 0,
+    "salarioFamilia": {
+      "valor": 0,
+      "limiteRemuneracao": 0
+    },
+    "fgtsPercentual": 0,
+    "multaFGTSSemJustaCausa": 0,
+    "multaFGTSAcordoMutuo": 0,
+    "avisoPrevio": {
+      "diasBase": 0,
+      "diasPorAno": 0,
+      "maximo": 0
+    },
+    "inss": [
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      }
+    ],
+    "irrf": [
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      }
+    ],
+    "redutorIR": {
+      "isencaoAte": 0,
+      "reducaoAte": 0
+    },
+    "seguroDesemprego": {
+      "faixas": [
+        {
+          "min": 0,
+          "max": 0,
+          "tipo": "percentual",
+          "percentual": 0
+        },
+        {
+          "min": 0,
+          "max": 0,
+          "tipo": "formula",
+          "percentual": 0,
+          "valorFixo": 0
+        },
+        {
+          "min": 0,
+          "max": 0,
+          "tipo": "fixo",
+          "valorFixo": 0
+        }
+      ],
+      "minimoParcelaValor": 0
+    }
+  },
+  "2036": {
+    "atualizadoEm": "",
+    "fontes": [],
+    "salarioMinimo": 0,
+    "tetoINSS": 0,
+    "descontoMaximoINSS": 0,
+    "deducaoDependenteIR": 0,
+    "salarioFamilia": {
+      "valor": 0,
+      "limiteRemuneracao": 0
+    },
+    "fgtsPercentual": 0,
+    "multaFGTSSemJustaCausa": 0,
+    "multaFGTSAcordoMutuo": 0,
+    "avisoPrevio": {
+      "diasBase": 0,
+      "diasPorAno": 0,
+      "maximo": 0
+    },
+    "inss": [
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      }
+    ],
+    "irrf": [
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      }
+    ],
+    "redutorIR": {
+      "isencaoAte": 0,
+      "reducaoAte": 0
+    },
+    "seguroDesemprego": {
+      "faixas": [
+        {
+          "min": 0,
+          "max": 0,
+          "tipo": "percentual",
+          "percentual": 0
+        },
+        {
+          "min": 0,
+          "max": 0,
+          "tipo": "formula",
+          "percentual": 0,
+          "valorFixo": 0
+        },
+        {
+          "min": 0,
+          "max": 0,
+          "tipo": "fixo",
+          "valorFixo": 0
+        }
+      ],
+      "minimoParcelaValor": 0
+    }
+  },
+  "2037": {
+    "atualizadoEm": "",
+    "fontes": [],
+    "salarioMinimo": 0,
+    "tetoINSS": 0,
+    "descontoMaximoINSS": 0,
+    "deducaoDependenteIR": 0,
+    "salarioFamilia": {
+      "valor": 0,
+      "limiteRemuneracao": 0
+    },
+    "fgtsPercentual": 0,
+    "multaFGTSSemJustaCausa": 0,
+    "multaFGTSAcordoMutuo": 0,
+    "avisoPrevio": {
+      "diasBase": 0,
+      "diasPorAno": 0,
+      "maximo": 0
+    },
+    "inss": [
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      }
+    ],
+    "irrf": [
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      }
+    ],
+    "redutorIR": {
+      "isencaoAte": 0,
+      "reducaoAte": 0
+    },
+    "seguroDesemprego": {
+      "faixas": [
+        {
+          "min": 0,
+          "max": 0,
+          "tipo": "percentual",
+          "percentual": 0
+        },
+        {
+          "min": 0,
+          "max": 0,
+          "tipo": "formula",
+          "percentual": 0,
+          "valorFixo": 0
+        },
+        {
+          "min": 0,
+          "max": 0,
+          "tipo": "fixo",
+          "valorFixo": 0
+        }
+      ],
+      "minimoParcelaValor": 0
+    }
+  },
+  "2038": {
+    "atualizadoEm": "",
+    "fontes": [],
+    "salarioMinimo": 0,
+    "tetoINSS": 0,
+    "descontoMaximoINSS": 0,
+    "deducaoDependenteIR": 0,
+    "salarioFamilia": {
+      "valor": 0,
+      "limiteRemuneracao": 0
+    },
+    "fgtsPercentual": 0,
+    "multaFGTSSemJustaCausa": 0,
+    "multaFGTSAcordoMutuo": 0,
+    "avisoPrevio": {
+      "diasBase": 0,
+      "diasPorAno": 0,
+      "maximo": 0
+    },
+    "inss": [
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      }
+    ],
+    "irrf": [
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      }
+    ],
+    "redutorIR": {
+      "isencaoAte": 0,
+      "reducaoAte": 0
+    },
+    "seguroDesemprego": {
+      "faixas": [
+        {
+          "min": 0,
+          "max": 0,
+          "tipo": "percentual",
+          "percentual": 0
+        },
+        {
+          "min": 0,
+          "max": 0,
+          "tipo": "formula",
+          "percentual": 0,
+          "valorFixo": 0
+        },
+        {
+          "min": 0,
+          "max": 0,
+          "tipo": "fixo",
+          "valorFixo": 0
+        }
+      ],
+      "minimoParcelaValor": 0
+    }
+  },
+  "2039": {
+    "atualizadoEm": "",
+    "fontes": [],
+    "salarioMinimo": 0,
+    "tetoINSS": 0,
+    "descontoMaximoINSS": 0,
+    "deducaoDependenteIR": 0,
+    "salarioFamilia": {
+      "valor": 0,
+      "limiteRemuneracao": 0
+    },
+    "fgtsPercentual": 0,
+    "multaFGTSSemJustaCausa": 0,
+    "multaFGTSAcordoMutuo": 0,
+    "avisoPrevio": {
+      "diasBase": 0,
+      "diasPorAno": 0,
+      "maximo": 0
+    },
+    "inss": [
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      }
+    ],
+    "irrf": [
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      }
+    ],
+    "redutorIR": {
+      "isencaoAte": 0,
+      "reducaoAte": 0
+    },
+    "seguroDesemprego": {
+      "faixas": [
+        {
+          "min": 0,
+          "max": 0,
+          "tipo": "percentual",
+          "percentual": 0
+        },
+        {
+          "min": 0,
+          "max": 0,
+          "tipo": "formula",
+          "percentual": 0,
+          "valorFixo": 0
+        },
+        {
+          "min": 0,
+          "max": 0,
+          "tipo": "fixo",
+          "valorFixo": 0
+        }
+      ],
+      "minimoParcelaValor": 0
+    }
+  },
+  "2040": {
+    "atualizadoEm": "",
+    "fontes": [],
+    "salarioMinimo": 0,
+    "tetoINSS": 0,
+    "descontoMaximoINSS": 0,
+    "deducaoDependenteIR": 0,
+    "salarioFamilia": {
+      "valor": 0,
+      "limiteRemuneracao": 0
+    },
+    "fgtsPercentual": 0,
+    "multaFGTSSemJustaCausa": 0,
+    "multaFGTSAcordoMutuo": 0,
+    "avisoPrevio": {
+      "diasBase": 0,
+      "diasPorAno": 0,
+      "maximo": 0
+    },
+    "inss": [
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      }
+    ],
+    "irrf": [
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      }
+    ],
+    "redutorIR": {
+      "isencaoAte": 0,
+      "reducaoAte": 0
+    },
+    "seguroDesemprego": {
+      "faixas": [
+        {
+          "min": 0,
+          "max": 0,
+          "tipo": "percentual",
+          "percentual": 0
+        },
+        {
+          "min": 0,
+          "max": 0,
+          "tipo": "formula",
+          "percentual": 0,
+          "valorFixo": 0
+        },
+        {
+          "min": 0,
+          "max": 0,
+          "tipo": "fixo",
+          "valorFixo": 0
+        }
+      ],
+      "minimoParcelaValor": 0
+    }
+  },
+  "2041": {
+    "atualizadoEm": "",
+    "fontes": [],
+    "salarioMinimo": 0,
+    "tetoINSS": 0,
+    "descontoMaximoINSS": 0,
+    "deducaoDependenteIR": 0,
+    "salarioFamilia": {
+      "valor": 0,
+      "limiteRemuneracao": 0
+    },
+    "fgtsPercentual": 0,
+    "multaFGTSSemJustaCausa": 0,
+    "multaFGTSAcordoMutuo": 0,
+    "avisoPrevio": {
+      "diasBase": 0,
+      "diasPorAno": 0,
+      "maximo": 0
+    },
+    "inss": [
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      }
+    ],
+    "irrf": [
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      }
+    ],
+    "redutorIR": {
+      "isencaoAte": 0,
+      "reducaoAte": 0
+    },
+    "seguroDesemprego": {
+      "faixas": [
+        {
+          "min": 0,
+          "max": 0,
+          "tipo": "percentual",
+          "percentual": 0
+        },
+        {
+          "min": 0,
+          "max": 0,
+          "tipo": "formula",
+          "percentual": 0,
+          "valorFixo": 0
+        },
+        {
+          "min": 0,
+          "max": 0,
+          "tipo": "fixo",
+          "valorFixo": 0
+        }
+      ],
+      "minimoParcelaValor": 0
+    }
+  },
+  "2042": {
+    "atualizadoEm": "",
+    "fontes": [],
+    "salarioMinimo": 0,
+    "tetoINSS": 0,
+    "descontoMaximoINSS": 0,
+    "deducaoDependenteIR": 0,
+    "salarioFamilia": {
+      "valor": 0,
+      "limiteRemuneracao": 0
+    },
+    "fgtsPercentual": 0,
+    "multaFGTSSemJustaCausa": 0,
+    "multaFGTSAcordoMutuo": 0,
+    "avisoPrevio": {
+      "diasBase": 0,
+      "diasPorAno": 0,
+      "maximo": 0
+    },
+    "inss": [
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      }
+    ],
+    "irrf": [
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      }
+    ],
+    "redutorIR": {
+      "isencaoAte": 0,
+      "reducaoAte": 0
+    },
+    "seguroDesemprego": {
+      "faixas": [
+        {
+          "min": 0,
+          "max": 0,
+          "tipo": "percentual",
+          "percentual": 0
+        },
+        {
+          "min": 0,
+          "max": 0,
+          "tipo": "formula",
+          "percentual": 0,
+          "valorFixo": 0
+        },
+        {
+          "min": 0,
+          "max": 0,
+          "tipo": "fixo",
+          "valorFixo": 0
+        }
+      ],
+      "minimoParcelaValor": 0
+    }
+  },
+  "2043": {
+    "atualizadoEm": "",
+    "fontes": [],
+    "salarioMinimo": 0,
+    "tetoINSS": 0,
+    "descontoMaximoINSS": 0,
+    "deducaoDependenteIR": 0,
+    "salarioFamilia": {
+      "valor": 0,
+      "limiteRemuneracao": 0
+    },
+    "fgtsPercentual": 0,
+    "multaFGTSSemJustaCausa": 0,
+    "multaFGTSAcordoMutuo": 0,
+    "avisoPrevio": {
+      "diasBase": 0,
+      "diasPorAno": 0,
+      "maximo": 0
+    },
+    "inss": [
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      }
+    ],
+    "irrf": [
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      }
+    ],
+    "redutorIR": {
+      "isencaoAte": 0,
+      "reducaoAte": 0
+    },
+    "seguroDesemprego": {
+      "faixas": [
+        {
+          "min": 0,
+          "max": 0,
+          "tipo": "percentual",
+          "percentual": 0
+        },
+        {
+          "min": 0,
+          "max": 0,
+          "tipo": "formula",
+          "percentual": 0,
+          "valorFixo": 0
+        },
+        {
+          "min": 0,
+          "max": 0,
+          "tipo": "fixo",
+          "valorFixo": 0
+        }
+      ],
+      "minimoParcelaValor": 0
+    }
+  },
+  "2044": {
+    "atualizadoEm": "",
+    "fontes": [],
+    "salarioMinimo": 0,
+    "tetoINSS": 0,
+    "descontoMaximoINSS": 0,
+    "deducaoDependenteIR": 0,
+    "salarioFamilia": {
+      "valor": 0,
+      "limiteRemuneracao": 0
+    },
+    "fgtsPercentual": 0,
+    "multaFGTSSemJustaCausa": 0,
+    "multaFGTSAcordoMutuo": 0,
+    "avisoPrevio": {
+      "diasBase": 0,
+      "diasPorAno": 0,
+      "maximo": 0
+    },
+    "inss": [
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      }
+    ],
+    "irrf": [
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      }
+    ],
+    "redutorIR": {
+      "isencaoAte": 0,
+      "reducaoAte": 0
+    },
+    "seguroDesemprego": {
+      "faixas": [
+        {
+          "min": 0,
+          "max": 0,
+          "tipo": "percentual",
+          "percentual": 0
+        },
+        {
+          "min": 0,
+          "max": 0,
+          "tipo": "formula",
+          "percentual": 0,
+          "valorFixo": 0
+        },
+        {
+          "min": 0,
+          "max": 0,
+          "tipo": "fixo",
+          "valorFixo": 0
+        }
+      ],
+      "minimoParcelaValor": 0
+    }
+  },
+  "2045": {
+    "atualizadoEm": "",
+    "fontes": [],
+    "salarioMinimo": 0,
+    "tetoINSS": 0,
+    "descontoMaximoINSS": 0,
+    "deducaoDependenteIR": 0,
+    "salarioFamilia": {
+      "valor": 0,
+      "limiteRemuneracao": 0
+    },
+    "fgtsPercentual": 0,
+    "multaFGTSSemJustaCausa": 0,
+    "multaFGTSAcordoMutuo": 0,
+    "avisoPrevio": {
+      "diasBase": 0,
+      "diasPorAno": 0,
+      "maximo": 0
+    },
+    "inss": [
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      }
+    ],
+    "irrf": [
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      }
+    ],
+    "redutorIR": {
+      "isencaoAte": 0,
+      "reducaoAte": 0
+    },
+    "seguroDesemprego": {
+      "faixas": [
+        {
+          "min": 0,
+          "max": 0,
+          "tipo": "percentual",
+          "percentual": 0
+        },
+        {
+          "min": 0,
+          "max": 0,
+          "tipo": "formula",
+          "percentual": 0,
+          "valorFixo": 0
+        },
+        {
+          "min": 0,
+          "max": 0,
+          "tipo": "fixo",
+          "valorFixo": 0
+        }
+      ],
+      "minimoParcelaValor": 0
+    }
+  },
+  "2046": {
+    "atualizadoEm": "",
+    "fontes": [],
+    "salarioMinimo": 0,
+    "tetoINSS": 0,
+    "descontoMaximoINSS": 0,
+    "deducaoDependenteIR": 0,
+    "salarioFamilia": {
+      "valor": 0,
+      "limiteRemuneracao": 0
+    },
+    "fgtsPercentual": 0,
+    "multaFGTSSemJustaCausa": 0,
+    "multaFGTSAcordoMutuo": 0,
+    "avisoPrevio": {
+      "diasBase": 0,
+      "diasPorAno": 0,
+      "maximo": 0
+    },
+    "inss": [
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      }
+    ],
+    "irrf": [
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      }
+    ],
+    "redutorIR": {
+      "isencaoAte": 0,
+      "reducaoAte": 0
+    },
+    "seguroDesemprego": {
+      "faixas": [
+        {
+          "min": 0,
+          "max": 0,
+          "tipo": "percentual",
+          "percentual": 0
+        },
+        {
+          "min": 0,
+          "max": 0,
+          "tipo": "formula",
+          "percentual": 0,
+          "valorFixo": 0
+        },
+        {
+          "min": 0,
+          "max": 0,
+          "tipo": "fixo",
+          "valorFixo": 0
+        }
+      ],
+      "minimoParcelaValor": 0
+    }
+  },
+  "2047": {
+    "atualizadoEm": "",
+    "fontes": [],
+    "salarioMinimo": 0,
+    "tetoINSS": 0,
+    "descontoMaximoINSS": 0,
+    "deducaoDependenteIR": 0,
+    "salarioFamilia": {
+      "valor": 0,
+      "limiteRemuneracao": 0
+    },
+    "fgtsPercentual": 0,
+    "multaFGTSSemJustaCausa": 0,
+    "multaFGTSAcordoMutuo": 0,
+    "avisoPrevio": {
+      "diasBase": 0,
+      "diasPorAno": 0,
+      "maximo": 0
+    },
+    "inss": [
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      }
+    ],
+    "irrf": [
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      }
+    ],
+    "redutorIR": {
+      "isencaoAte": 0,
+      "reducaoAte": 0
+    },
+    "seguroDesemprego": {
+      "faixas": [
+        {
+          "min": 0,
+          "max": 0,
+          "tipo": "percentual",
+          "percentual": 0
+        },
+        {
+          "min": 0,
+          "max": 0,
+          "tipo": "formula",
+          "percentual": 0,
+          "valorFixo": 0
+        },
+        {
+          "min": 0,
+          "max": 0,
+          "tipo": "fixo",
+          "valorFixo": 0
+        }
+      ],
+      "minimoParcelaValor": 0
+    }
+  },
+  "2048": {
+    "atualizadoEm": "",
+    "fontes": [],
+    "salarioMinimo": 0,
+    "tetoINSS": 0,
+    "descontoMaximoINSS": 0,
+    "deducaoDependenteIR": 0,
+    "salarioFamilia": {
+      "valor": 0,
+      "limiteRemuneracao": 0
+    },
+    "fgtsPercentual": 0,
+    "multaFGTSSemJustaCausa": 0,
+    "multaFGTSAcordoMutuo": 0,
+    "avisoPrevio": {
+      "diasBase": 0,
+      "diasPorAno": 0,
+      "maximo": 0
+    },
+    "inss": [
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      }
+    ],
+    "irrf": [
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      }
+    ],
+    "redutorIR": {
+      "isencaoAte": 0,
+      "reducaoAte": 0
+    },
+    "seguroDesemprego": {
+      "faixas": [
+        {
+          "min": 0,
+          "max": 0,
+          "tipo": "percentual",
+          "percentual": 0
+        },
+        {
+          "min": 0,
+          "max": 0,
+          "tipo": "formula",
+          "percentual": 0,
+          "valorFixo": 0
+        },
+        {
+          "min": 0,
+          "max": 0,
+          "tipo": "fixo",
+          "valorFixo": 0
+        }
+      ],
+      "minimoParcelaValor": 0
+    }
+  },
+  "2049": {
+    "atualizadoEm": "",
+    "fontes": [],
+    "salarioMinimo": 0,
+    "tetoINSS": 0,
+    "descontoMaximoINSS": 0,
+    "deducaoDependenteIR": 0,
+    "salarioFamilia": {
+      "valor": 0,
+      "limiteRemuneracao": 0
+    },
+    "fgtsPercentual": 0,
+    "multaFGTSSemJustaCausa": 0,
+    "multaFGTSAcordoMutuo": 0,
+    "avisoPrevio": {
+      "diasBase": 0,
+      "diasPorAno": 0,
+      "maximo": 0
+    },
+    "inss": [
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      }
+    ],
+    "irrf": [
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      }
+    ],
+    "redutorIR": {
+      "isencaoAte": 0,
+      "reducaoAte": 0
+    },
+    "seguroDesemprego": {
+      "faixas": [
+        {
+          "min": 0,
+          "max": 0,
+          "tipo": "percentual",
+          "percentual": 0
+        },
+        {
+          "min": 0,
+          "max": 0,
+          "tipo": "formula",
+          "percentual": 0,
+          "valorFixo": 0
+        },
+        {
+          "min": 0,
+          "max": 0,
+          "tipo": "fixo",
+          "valorFixo": 0
+        }
+      ],
+      "minimoParcelaValor": 0
+    }
+  },
+  "2050": {
+    "atualizadoEm": "",
+    "fontes": [],
+    "salarioMinimo": 0,
+    "tetoINSS": 0,
+    "descontoMaximoINSS": 0,
+    "deducaoDependenteIR": 0,
+    "salarioFamilia": {
+      "valor": 0,
+      "limiteRemuneracao": 0
+    },
+    "fgtsPercentual": 0,
+    "multaFGTSSemJustaCausa": 0,
+    "multaFGTSAcordoMutuo": 0,
+    "avisoPrevio": {
+      "diasBase": 0,
+      "diasPorAno": 0,
+      "maximo": 0
+    },
+    "inss": [
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      }
+    ],
+    "irrf": [
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "aliquota": 0,
+        "deducao": 0
+      }
+    ],
+    "redutorIR": {
+      "isencaoAte": 0,
+      "reducaoAte": 0
+    },
+    "seguroDesemprego": {
+      "faixas": [
+        {
+          "min": 0,
+          "max": 0,
+          "tipo": "percentual",
+          "percentual": 0
+        },
+        {
+          "min": 0,
+          "max": 0,
+          "tipo": "formula",
+          "percentual": 0,
+          "valorFixo": 0
+        },
+        {
+          "min": 0,
+          "max": 0,
+          "tipo": "fixo",
+          "valorFixo": 0
+        }
+      ],
+      "minimoParcelaValor": 0
+    }
+  }
+}
