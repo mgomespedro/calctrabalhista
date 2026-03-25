@@ -3,7 +3,7 @@
  * Tipos: sem justa causa, pedido de demissão, acordo mútuo (484-A), justa causa
  */
 
-import { calcularINSS, calcularIRRF, SALARIO_MINIMO, TABELAS } from './calculos'
+import { calcularINSS, calcularIRRF } from './calculos'
 
 /**
  * Calcula a diferença em meses entre duas datas (para férias e 13º proporcionais)
@@ -14,7 +14,7 @@ function calcularMesesTrabalhados(dataAdmissao, dataDemissao) {
   const fim = new Date(dataDemissao)
 
   let meses = (fim.getFullYear() - inicio.getFullYear()) * 12 + (fim.getMonth() - inicio.getMonth())
-  
+
   // Se os dias no último mês >= 15, conta como mais 1 avo
   const diaInicio = inicio.getDate()
   const diaFim = fim.getDate()
@@ -36,14 +36,14 @@ function calcularAnosServico(dataAdmissao, dataDemissao) {
   const inicio = new Date(dataAdmissao)
   const fim = new Date(dataDemissao)
   let anos = fim.getFullYear() - inicio.getFullYear()
-  
+
   // Ajustar se ainda não completou o aniversário
   const mesInicio = inicio.getMonth()
   const mesFim = fim.getMonth()
   if (mesFim < mesInicio || (mesFim === mesInicio && fim.getDate() < inicio.getDate())) {
     anos--
   }
-  
+
   return Math.max(0, anos)
 }
 
@@ -55,12 +55,12 @@ function calcularAnosServico(dataAdmissao, dataDemissao) {
 function calcularAvos13(dataDemissao) {
   const fim = new Date(dataDemissao)
   let avos = fim.getMonth() // Janeiro=0, então getMonth() dá o nº de meses completos antes
-  
+
   // Se trabalhou >= 15 dias no mês da rescisão, soma mais 1
   if (fim.getDate() >= 15) {
     avos += 1
   }
-  
+
   return Math.min(12, Math.max(0, avos))
 }
 
@@ -83,7 +83,7 @@ function calcularAvosFerias(dataAdmissao, dataDemissao) {
 
   // Calcular meses desde o início do período aquisitivo
   let avos = (fim.getFullYear() - periodoInicio.getFullYear()) * 12 + (fim.getMonth() - periodoInicio.getMonth())
-  
+
   // Se >= 15 dias no último mês, conta mais 1
   if (fim.getDate() >= periodoInicio.getDate() || fim.getDate() >= 15) {
     avos += 1
