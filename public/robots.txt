@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://calctrabalhista.vercel.app/sitemap.xml
