@@ -1,16 +1,22 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { usePremium } from '../context/PremiumContext'
 
 export default function ModalLoginPremium({ onFechar }) {
     const { verificarEmail } = usePremium()
     const [email, setEmail] = useState('')
-    const [estado, setEstado] = useState('idle') // idle | carregando | sucesso | erro
+    const [estado, setEstado] = useState('idle')
     const [mensagemErro, setMensagemErro] = useState('')
+    const inputRef = useRef(null)
+
+    useEffect(() => {
+        inputRef.current?.focus()
+    }, [])
 
     async function handleSubmit() {
         if (!email.includes('@')) {
             setMensagemErro('Insira um e-mail válido.')
             setEstado('erro')
+            inputRef.current?.focus()
             return
         }
 
@@ -32,10 +38,12 @@ export default function ModalLoginPremium({ onFechar }) {
                 } else {
                     setMensagemErro('Não foi possível verificar. Tente novamente.')
                 }
+                inputRef.current?.focus()
             }
         } catch {
             setEstado('erro')
             setMensagemErro('Erro de ligação. Verifique a sua internet e tente novamente.')
+            inputRef.current?.focus()
         }
     }
 
@@ -86,6 +94,7 @@ export default function ModalLoginPremium({ onFechar }) {
 
                         <div className="space-y-3">
                             <input
+                                ref={inputRef}
                                 type="email"
                                 value={email}
                                 onChange={e => setEmail(e.target.value)}
