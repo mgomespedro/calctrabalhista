@@ -133,9 +133,9 @@ export default function ModalLoginPremium({ onFechar }) {
                         <div className="mt-5 pt-5 border-t border-white/5 text-center">
                             <p className="text-gray-600 text-xs">
                                 Ainda não é Premium?{' '}
-                                <a href="/premium" className="text-amber-400 hover:text-amber-300 transition-colors" onClick={onFechar}>
+                                <Link to="/premium" className="text-amber-400 hover:text-amber-300 transition-colors" onClick={onFechar}>
                                     Assine agora
-                                </a>
+                                </Link>
                             </p>
                         </div>
                     </>
