@@ -11,7 +11,7 @@ function formatarData(data) {
     return `${dia}/${mes}/${ano}`
 }
 
-function criarHeader(doc, titulo, subtitulo) {
+function criarHeader(doc, titulo, isPremium = false) {
     const ano = new Date().getFullYear()
     doc.setFillColor(16, 185, 129)
     doc.rect(0, 0, 210, 35, 'F')
@@ -22,15 +22,53 @@ function criarHeader(doc, titulo, subtitulo) {
     doc.setFontSize(10)
     doc.setFont('helvetica', 'normal')
     doc.text(`${titulo} — Tabelas ${ano}`, 14, 28)
+
+    if (isPremium) {
+        doc.setFillColor(245, 158, 11)
+        doc.roundedRect(158, 8, 38, 12, 2, 2, 'F')
+        doc.setTextColor(0, 0, 0)
+        doc.setFontSize(8)
+        doc.setFont('helvetica', 'bold')
+        doc.text('★ PREMIUM', 177, 16, { align: 'center' })
+    }
 }
 
-function criarFooter(doc) {
+function criarFooter(doc, isPremium = false, email = '') {
     const pageHeight = doc.internal.pageSize.height
-    doc.setTextColor(150, 150, 150)
-    doc.setFontSize(7)
-    doc.setFont('helvetica', 'normal')
-    doc.text('Este documento tem caráter informativo e não substitui orientação profissional.', 14, pageHeight - 15)
-    doc.text(`Gerado por CalcTrabalhista (calctrabalhista.vercel.app) em ${new Date().toLocaleDateString('pt-BR')}`, 14, pageHeight - 10)
+    const pageCount = doc.internal.getNumberOfPages()
+
+    for (let i = 1; i <= pageCount; i++) {
+        doc.setPage(i)
+        doc.setTextColor(150, 150, 150)
+        doc.setFontSize(7)
+        doc.setFont('helvetica', 'normal')
+        doc.text(
+            'Este documento tem caráter informativo e não substitui orientação profissional.',
+            14, pageHeight - 15
+        )
+        doc.text(
+            `Gerado por CalcTrabalhista (calctrabalhista.vercel.app) em ${new Date().toLocaleDateString('pt-BR')}`,
+            14, pageHeight - 10
+        )
+        if (isPremium && email) {
+            doc.text(`Licenciado para: ${email}`, 196, pageHeight - 10, { align: 'right' })
+        }
+        doc.text(`Página ${i} de ${pageCount}`, 196, pageHeight - 15, { align: 'right' })
+    }
+}
+
+function adicionarMarcaDagua(doc) {
+    const pageCount = doc.internal.getNumberOfPages()
+    for (let i = 1; i <= pageCount; i++) {
+        doc.setPage(i)
+        doc.setTextColor(200, 200, 200)
+        doc.setFontSize(40)
+        doc.setFont('helvetica', 'bold')
+        doc.saveGraphicsState()
+        doc.setGState(new doc.GState({ opacity: 0.15 }))
+        doc.text('VERSÃO GRATUITA', 105, 160, { align: 'center', angle: 45 })
+        doc.restoreGraphicsState()
+    }
 }
 
 function criarTotalDestacado(doc, posY, label, valor) {
@@ -47,12 +85,10 @@ function criarTotalDestacado(doc, posY, label, valor) {
 // =====================================================
 // 1. RESCISÃO TRABALHISTA
 // =====================================================
-export function exportarRescisaoPDF(dados, resultado) {
+export function exportarRescisaoPDF(dados, resultado, isPremium = false, email = '') {
     const doc = new jsPDF()
+    criarHeader(doc, 'Relatório de Rescisão Trabalhista', isPremium)
 
-    criarHeader(doc, 'Relatório de Rescisão Trabalhista')
-
-    // Dados do cálculo
     doc.setTextColor(60, 60, 60)
     doc.setFontSize(12)
     doc.setFont('helvetica', 'bold')
@@ -88,7 +124,6 @@ export function exportarRescisaoPDF(dados, resultado) {
         },
     })
 
-    // Verbas
     let posY = doc.lastAutoTable.finalY + 10
     doc.setFontSize(12)
     doc.setFont('helvetica', 'bold')
@@ -114,7 +149,6 @@ export function exportarRescisaoPDF(dados, resultado) {
         },
     })
 
-    // Descontos
     if (resultado.descontos.length > 0) {
         posY = doc.lastAutoTable.finalY + 10
         doc.setFontSize(12)
@@ -142,7 +176,6 @@ export function exportarRescisaoPDF(dados, resultado) {
         })
     }
 
-    // FGTS
     if (resultado.fgts) {
         posY = doc.lastAutoTable.finalY + 10
         doc.setFontSize(12)
@@ -172,21 +205,20 @@ export function exportarRescisaoPDF(dados, resultado) {
         })
     }
 
-    // Total
     posY = doc.lastAutoTable.finalY + 12
     criarTotalDestacado(doc, posY, 'TOTAL LÍQUIDO DA RESCISÃO', resultado.totalLiquido)
 
-    criarFooter(doc)
+    if (!isPremium) adicionarMarcaDagua(doc)
+    criarFooter(doc, isPremium, email)
     doc.save(`rescisao-trabalhista-${new Date().getFullYear()}.pdf`)
 }
 
 // =====================================================
 // 2. SALÁRIO LÍQUIDO
 // =====================================================
-export function exportarSalarioLiquidoPDF(dados, resultado) {
+export function exportarSalarioLiquidoPDF(dados, resultado, isPremium = false, email = '') {
     const doc = new jsPDF()
-
-    criarHeader(doc, 'Relatório de Salário Líquido')
+    criarHeader(doc, 'Relatório de Salário Líquido', isPremium)
 
     doc.setTextColor(60, 60, 60)
     doc.setFontSize(12)
@@ -254,17 +286,17 @@ export function exportarSalarioLiquidoPDF(dados, resultado) {
         doc.text('* Você está isento de Imposto de Renda (base de cálculo dentro da faixa de isenção).', 14, posY)
     }
 
-    criarFooter(doc)
+    if (!isPremium) adicionarMarcaDagua(doc)
+    criarFooter(doc, isPremium, email)
     doc.save(`salario-liquido-${new Date().getFullYear()}.pdf`)
 }
 
 // =====================================================
 // 3. FÉRIAS
 // =====================================================
-export function exportarFeriasPDF(dados, resultado) {
+export function exportarFeriasPDF(dados, resultado, isPremium = false, email = '') {
     const doc = new jsPDF()
-
-    criarHeader(doc, 'Relatório de Férias')
+    criarHeader(doc, 'Relatório de Férias', isPremium)
 
     doc.setTextColor(60, 60, 60)
     doc.setFontSize(12)
@@ -320,7 +352,6 @@ export function exportarFeriasPDF(dados, resultado) {
         },
     })
 
-    // Descontos
     posY = doc.lastAutoTable.finalY + 10
     doc.setFontSize(12)
     doc.setFont('helvetica', 'bold')
@@ -352,17 +383,17 @@ export function exportarFeriasPDF(dados, resultado) {
     posY = doc.lastAutoTable.finalY + 12
     criarTotalDestacado(doc, posY, 'TOTAL LÍQUIDO DAS FÉRIAS', resultado.totalLiquido)
 
-    criarFooter(doc)
+    if (!isPremium) adicionarMarcaDagua(doc)
+    criarFooter(doc, isPremium, email)
     doc.save(`ferias-${new Date().getFullYear()}.pdf`)
 }
 
 // =====================================================
 // 4. 13º SALÁRIO
 // =====================================================
-export function exportarDecimoTerceiroPDF(dados, resultado) {
+export function exportarDecimoTerceiroPDF(dados, resultado, isPremium = false, email = '') {
     const doc = new jsPDF()
-
-    criarHeader(doc, 'Relatório de 13º Salário')
+    criarHeader(doc, 'Relatório de 13º Salário', isPremium)
 
     doc.setTextColor(60, 60, 60)
     doc.setFontSize(12)
@@ -411,17 +442,17 @@ export function exportarDecimoTerceiroPDF(dados, resultado) {
     posY = doc.lastAutoTable.finalY + 12
     criarTotalDestacado(doc, posY, 'TOTAL LÍQUIDO DO 13º SALÁRIO', resultado.totalLiquido)
 
-    criarFooter(doc)
+    if (!isPremium) adicionarMarcaDagua(doc)
+    criarFooter(doc, isPremium, email)
     doc.save(`decimo-terceiro-${new Date().getFullYear()}.pdf`)
 }
 
 // =====================================================
 // 5. HORAS EXTRAS
 // =====================================================
-export function exportarHorasExtrasPDF(dados, resultado) {
+export function exportarHorasExtrasPDF(dados, resultado, isPremium = false, email = '') {
     const doc = new jsPDF()
-
-    criarHeader(doc, 'Relatório de Horas Extras')
+    criarHeader(doc, 'Relatório de Horas Extras', isPremium)
 
     doc.setTextColor(60, 60, 60)
     doc.setFontSize(12)
@@ -487,24 +518,28 @@ export function exportarHorasExtrasPDF(dados, resultado) {
     doc.setTextColor(100, 100, 100)
     doc.text('* Este valor é bruto e será somado ao salário mensal. Os descontos de INSS e IR incidem sobre o total.', 14, posY)
 
-    criarFooter(doc)
+    if (!isPremium) adicionarMarcaDagua(doc)
+    criarFooter(doc, isPremium, email)
     doc.save(`horas-extras-${new Date().getFullYear()}.pdf`)
 }
 
 // =====================================================
 // 6. SEGURO-DESEMPREGO
 // =====================================================
-export function exportarSeguroDesempregoPDF(dados, resultado) {
+export function exportarSeguroDesempregoPDF(dados, resultado, isPremium = false, email = '') {
     const doc = new jsPDF()
-
-    criarHeader(doc, 'Relatório de Seguro-Desemprego')
+    criarHeader(doc, 'Relatório de Seguro-Desemprego', isPremium)
 
     doc.setTextColor(60, 60, 60)
     doc.setFontSize(12)
     doc.setFont('helvetica', 'bold')
     doc.text('Dados do Cálculo', 14, 48)
 
-    const vezesLabel = { '0': '1ª solicitação (nunca recebeu)', '1': '2ª solicitação (recebeu 1 vez)', '2': '3ª+ solicitação (recebeu 2+ vezes)' }
+    const vezesLabel = {
+        '0': '1ª solicitação (nunca recebeu)',
+        '1': '2ª solicitação (recebeu 1 vez)',
+        '2': '3ª+ solicitação (recebeu 2+ vezes)',
+    }
 
     autoTable(doc, {
         startY: 53,
@@ -557,7 +592,6 @@ export function exportarSeguroDesempregoPDF(dados, resultado) {
             columnStyles: { 1: { halign: 'right', fontStyle: 'bold' } },
         })
 
-        // Parcelas individuais
         posY = doc.lastAutoTable.finalY + 10
         doc.setFontSize(12)
         doc.setFont('helvetica', 'bold')
@@ -590,6 +624,7 @@ export function exportarSeguroDesempregoPDF(dados, resultado) {
         doc.text('* O seguro-desemprego não tem descontos de INSS ou Imposto de Renda.', 14, posY)
     }
 
-    criarFooter(doc)
+    if (!isPremium) adicionarMarcaDagua(doc)
+    criarFooter(doc, isPremium, email)
     doc.save(`seguro-desemprego-${new Date().getFullYear()}.pdf`)
 }
