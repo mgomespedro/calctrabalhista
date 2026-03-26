@@ -1,8 +1,9 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { calcularRescisao } from '../utils/rescisao'
-import { formatarMoeda, ANO, TABELAS } from '../utils/calculos'
+import { usePremium } from '../context/PremiumContext'
+import { ANO, formatarMoeda, TABELAS } from '../utils/calculos'
 import { exportarRescisaoPDF } from '../utils/exportarPDF'
+import { calcularRescisao } from '../utils/rescisao'
 
 const TIPOS_RESCISAO = [
   { value: 'sem_justa_causa', label: 'Demissão sem justa causa', desc: 'A empresa demitiu o trabalhador' },
@@ -25,6 +26,7 @@ export default function Rescisao() {
   })
   const [resultado, setResultado] = useState(null)
   const [erro, setErro] = useState('')
+  const { isPremium, sessao } = usePremium()
 
   function handleChange(e) {
     const { name, value, type, checked } = e.target
@@ -39,7 +41,6 @@ export default function Rescisao() {
     setErro('')
     setResultado(null)
 
-    // Validações
     if (!form.salarioBruto || parseFloat(form.salarioBruto) <= 0) {
       setErro('Informe o salário bruto.')
       return
@@ -71,7 +72,6 @@ export default function Rescisao() {
 
     setResultado(res)
 
-    // Scroll to results
     setTimeout(() => {
       document.getElementById('resultado')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
     }, 100)
@@ -138,11 +138,10 @@ export default function Rescisao() {
               {TIPOS_RESCISAO.map(tipo => (
                 <label
                   key={tipo.value}
-                  className={`flex items-start gap-3 p-3 rounded-xl border cursor-pointer transition-all ${
-                    form.tipoRescisao === tipo.value
+                  className={`flex items-start gap-3 p-3 rounded-xl border cursor-pointer transition-all ${form.tipoRescisao === tipo.value
                       ? 'border-emerald-500/40 bg-emerald-500/5'
                       : 'border-white/5 bg-white/[0.02] hover:border-white/10'
-                  }`}
+                    }`}
                 >
                   <input
                     type="radio"
@@ -432,29 +431,31 @@ export default function Rescisao() {
               Baixe um relatório profissional com todos os detalhes da sua rescisão.
             </p>
             <button
-              onClick={() => exportarRescisaoPDF(form, resultado)}
+              onClick={() => exportarRescisaoPDF(form, resultado, isPremium, sessao?.email)}
               className="inline-flex items-center gap-2 bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-400 hover:to-emerald-500 text-white font-semibold px-6 py-2.5 rounded-xl shadow-lg shadow-emerald-500/20 transition-all text-sm mb-4"
             >
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-4 h-4">
                 <path d="M10.75 2.75a.75.75 0 0 0-1.5 0v8.614L6.295 8.235a.75.75 0 1 0-1.09 1.03l4.25 4.5a.75.75 0 0 0 1.09 0l4.25-4.5a.75.75 0 0 0-1.09-1.03l-2.955 3.129V2.75Z" />
                 <path d="M3.5 12.75a.75.75 0 0 0-1.5 0v2.5A2.75 2.75 0 0 0 4.75 18h10.5A2.75 2.75 0 0 0 18 15.25v-2.5a.75.75 0 0 0-1.5 0v2.5c0 .69-.56 1.25-1.25 1.25H4.75c-.69 0-1.25-.56-1.25-1.25v-2.5Z" />
               </svg>
-              Baixar PDF Grátis
+              {isPremium ? 'Baixar PDF Premium' : 'Baixar PDF Grátis'}
             </button>
-            <div className="border-t border-white/10 pt-4 mt-2">
-              <p className="text-gray-500 text-xs mb-3">
-                ⭐ Quer ainda mais? Compare cenários, exporte Excel e acesse o histórico completo.
-              </p>
-              <Link
-                to="/premium"
-                className="inline-flex items-center gap-2 text-amber-400 hover:text-amber-300 font-medium text-sm transition-colors"
-              >
-                Conhecer o Premium
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" className="w-4 h-4">
-                  <path fillRule="evenodd" d="M2 8a.75.75 0 0 1 .75-.75h8.69L8.22 4.03a.75.75 0 0 1 1.06-1.06l4.5 4.5a.75.75 0 0 1 0 1.06l-4.5 4.5a.75.75 0 0 1-1.06-1.06l3.22-3.22H2.75A.75.75 0 0 1 2 8Z" clipRule="evenodd" />
-                </svg>
-              </Link>
-            </div>
+            {!isPremium && (
+              <div className="border-t border-white/10 pt-4 mt-2">
+                <p className="text-gray-500 text-xs mb-3">
+                  ⭐ Quer ainda mais? Compare cenários, exporte Excel e acesse o histórico completo.
+                </p>
+                <Link
+                  to="/premium"
+                  className="inline-flex items-center gap-2 text-amber-400 hover:text-amber-300 font-medium text-sm transition-colors"
+                >
+                  Conhecer o Premium
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" className="w-4 h-4">
+                    <path fillRule="evenodd" d="M2 8a.75.75 0 0 1 .75-.75h8.69L8.22 4.03a.75.75 0 0 1 1.06-1.06l4.5 4.5a.75.75 0 0 1 0 1.06l-4.5 4.5a.75.75 0 0 1-1.06-1.06l3.22-3.22H2.75A.75.75 0 0 1 2 8Z" clipRule="evenodd" />
+                  </svg>
+                </Link>
+              </div>
+            )}
           </div>
         </div>
       )}

@@ -1,4 +1,10 @@
+import { usePremium } from '../context/PremiumContext'
+
 const AdBanner = ({ slot, format = 'auto', className = '' }) => {
+    const { isPremium } = usePremium()
+
+    if (isPremium) return null
+
     return (
         <div className={`ad-container my-6 flex justify-center ${className}`}>
             {/* Placeholder - será substituído pelo código real do AdSense após aprovação */}
@@ -6,7 +12,7 @@ const AdBanner = ({ slot, format = 'auto', className = '' }) => {
                 <p>Espaço publicitário</p>
             </div>
         </div>
-    );
-};
+    )
+}
 
-export default AdBanner;
+export default AdBanner
