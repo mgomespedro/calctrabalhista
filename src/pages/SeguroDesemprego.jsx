@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { formatarMoeda, ANO, TABELAS } from '../utils/calculos'
+import { usePremium } from '../context/PremiumContext'
+import { ANO, formatarMoeda, TABELAS } from '../utils/calculos'
 import { exportarSeguroDesempregoPDF } from '../utils/exportarPDF'
 
 export default function SeguroDesemprego() {
@@ -8,11 +9,12 @@ export default function SeguroDesemprego() {
     salario1: '',
     salario2: '',
     salario3: '',
-    vezesRecebeu: '0', // quantas vezes já recebeu seguro-desemprego
+    vezesRecebeu: '0',
     mesesTrabalhados: '',
   })
   const [resultado, setResultado] = useState(null)
   const [erro, setErro] = useState('')
+  const { isPremium, sessao } = usePremium()
 
   function handleChange(e) {
     const { name, value } = e.target
@@ -20,26 +22,17 @@ export default function SeguroDesemprego() {
   }
 
   function calcularParcelas(vezes, meses) {
-    // Regras de parcelas baseadas em quantas vezes já recebeu
-    // 1ª solicitação: mínimo 12 meses trabalhados nos últimos 18 → 4 parcelas (12-23 meses) ou 5 (24+)
-    // 2ª solicitação: mínimo 9 meses nos últimos 12 → 3 parcelas (9-11) ou 4 (12-23) ou 5 (24+)
-    // 3ª+ solicitação: mínimo 6 meses nos últimos 6 → 3 parcelas (6-11) ou 4 (12-23) ou 5 (24+)
-
     const v = parseInt(vezes)
-
     if (v === 0) {
-      // 1ª solicitação
       if (meses < 12) return { temDireito: false, motivo: 'Na 1ª solicitação, é necessário ter trabalhado pelo menos 12 meses nos últimos 18 meses.' }
       if (meses >= 24) return { temDireito: true, parcelas: 5 }
       return { temDireito: true, parcelas: 4 }
     } else if (v === 1) {
-      // 2ª solicitação
       if (meses < 9) return { temDireito: false, motivo: 'Na 2ª solicitação, é necessário ter trabalhado pelo menos 9 meses nos últimos 12 meses.' }
       if (meses >= 24) return { temDireito: true, parcelas: 5 }
       if (meses >= 12) return { temDireito: true, parcelas: 4 }
       return { temDireito: true, parcelas: 3 }
     } else {
-      // 3ª+ solicitação
       if (meses < 6) return { temDireito: false, motivo: 'A partir da 3ª solicitação, é necessário ter trabalhado pelo menos 6 meses.' }
       if (meses >= 24) return { temDireito: true, parcelas: 5 }
       if (meses >= 12) return { temDireito: true, parcelas: 4 }
@@ -50,9 +43,7 @@ export default function SeguroDesemprego() {
   function calcularValorParcela(mediaSalarial) {
     const faixas = TABELAS.seguroDesemprego.faixas
     const minimo = TABELAS.seguroDesemprego.minimoParcelaValor
-
     let valor = 0
-
     for (const faixa of faixas) {
       if (mediaSalarial >= faixa.min && mediaSalarial <= faixa.max) {
         if (faixa.tipo === 'percentual') {
@@ -65,8 +56,6 @@ export default function SeguroDesemprego() {
         break
       }
     }
-
-    // Valor mínimo = salário mínimo
     return Math.max(minimo, Math.round(valor * 100) / 100)
   }
 
@@ -94,14 +83,10 @@ export default function SeguroDesemprego() {
     const infoParcelas = calcularParcelas(form.vezesRecebeu, meses)
 
     if (!infoParcelas.temDireito) {
-      setResultado({
-        temDireito: false,
-        motivo: infoParcelas.motivo,
-      })
+      setResultado({ temDireito: false, motivo: infoParcelas.motivo })
     } else {
       const valorParcela = calcularValorParcela(mediaSalarial)
       const totalEstimado = valorParcela * infoParcelas.parcelas
-
       setResultado({
         temDireito: true,
         mediaSalarial: Math.round(mediaSalarial * 100) / 100,
@@ -154,64 +139,34 @@ export default function SeguroDesemprego() {
       {/* Form */}
       <form onSubmit={handleCalcular} className="bg-[#1a1a2e] border border-white/5 rounded-2xl p-6 sm:p-8 mb-6">
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
-
-          {/* 3 últimos salários */}
           <div>
             <label className="block text-white text-sm font-semibold mb-2">Último salário (R$)</label>
-            <input
-              type="number"
-              name="salario1"
-              value={form.salario1}
-              onChange={handleChange}
-              placeholder="Mês mais recente"
-              step="0.01"
-              min="0"
+            <input type="number" name="salario1" value={form.salario1} onChange={handleChange}
+              placeholder="Mês mais recente" step="0.01" min="0"
               className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-600 focus:outline-none focus:border-emerald-500/50 focus:ring-1 focus:ring-emerald-500/25 transition-all"
             />
           </div>
           <div>
             <label className="block text-white text-sm font-semibold mb-2">Penúltimo salário (R$)</label>
-            <input
-              type="number"
-              name="salario2"
-              value={form.salario2}
-              onChange={handleChange}
-              placeholder="2º mês anterior"
-              step="0.01"
-              min="0"
+            <input type="number" name="salario2" value={form.salario2} onChange={handleChange}
+              placeholder="2º mês anterior" step="0.01" min="0"
               className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-600 focus:outline-none focus:border-emerald-500/50 focus:ring-1 focus:ring-emerald-500/25 transition-all"
             />
           </div>
           <div>
             <label className="block text-white text-sm font-semibold mb-2">Antepenúltimo salário (R$)</label>
-            <input
-              type="number"
-              name="salario3"
-              value={form.salario3}
-              onChange={handleChange}
-              placeholder="3º mês anterior"
-              step="0.01"
-              min="0"
+            <input type="number" name="salario3" value={form.salario3} onChange={handleChange}
+              placeholder="3º mês anterior" step="0.01" min="0"
               className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-600 focus:outline-none focus:border-emerald-500/50 focus:ring-1 focus:ring-emerald-500/25 transition-all"
             />
           </div>
-
-          {/* Meses trabalhados */}
           <div>
             <label className="block text-white text-sm font-semibold mb-2">Meses trabalhados</label>
-            <input
-              type="number"
-              name="mesesTrabalhados"
-              value={form.mesesTrabalhados}
-              onChange={handleChange}
-              placeholder="Nos últimos 18 meses"
-              min="1"
-              max="36"
+            <input type="number" name="mesesTrabalhados" value={form.mesesTrabalhados} onChange={handleChange}
+              placeholder="Nos últimos 18 meses" min="1" max="36"
               className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-600 focus:outline-none focus:border-emerald-500/50 focus:ring-1 focus:ring-emerald-500/25 transition-all"
             />
           </div>
-
-          {/* Vezes que já recebeu */}
           <div className="sm:col-span-2">
             <label className="block text-white text-sm font-semibold mb-2">Quantas vezes já recebeu seguro-desemprego?</label>
             <div className="grid grid-cols-3 gap-2">
@@ -220,21 +175,14 @@ export default function SeguroDesemprego() {
                 { value: '1', label: '1 vez', desc: '2ª solicitação' },
                 { value: '2', label: '2+ vezes', desc: '3ª+ solicitação' },
               ].map(opt => (
-                <label
-                  key={opt.value}
-                  className={`flex flex-col items-center p-2.5 rounded-xl border cursor-pointer transition-all text-center ${
-                    form.vezesRecebeu === opt.value
+                <label key={opt.value}
+                  className={`flex flex-col items-center p-2.5 rounded-xl border cursor-pointer transition-all text-center ${form.vezesRecebeu === opt.value
                       ? 'border-emerald-500/40 bg-emerald-500/5'
                       : 'border-white/5 bg-white/[0.02] hover:border-white/10'
-                  }`}
+                    }`}
                 >
-                  <input
-                    type="radio"
-                    name="vezesRecebeu"
-                    value={opt.value}
-                    checked={form.vezesRecebeu === opt.value}
-                    onChange={handleChange}
-                    className="sr-only"
+                  <input type="radio" name="vezesRecebeu" value={opt.value}
+                    checked={form.vezesRecebeu === opt.value} onChange={handleChange} className="sr-only"
                   />
                   <span className={`text-sm font-bold ${form.vezesRecebeu === opt.value ? 'text-emerald-400' : 'text-white'}`}>
                     {opt.label}
@@ -246,24 +194,19 @@ export default function SeguroDesemprego() {
           </div>
         </div>
 
-        {/* Error */}
         {erro && (
           <div className="mt-4 bg-rose-500/10 border border-rose-500/20 rounded-xl px-4 py-3">
             <p className="text-rose-400 text-sm">{erro}</p>
           </div>
         )}
 
-        {/* Buttons */}
         <div className="mt-6 flex flex-col sm:flex-row gap-3">
-          <button
-            type="submit"
+          <button type="submit"
             className="flex-1 bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-400 hover:to-emerald-500 text-white font-semibold px-6 py-3.5 rounded-xl shadow-lg shadow-emerald-500/20 hover:shadow-emerald-500/35 transition-all duration-200 text-base"
           >
             Calcular Seguro-Desemprego
           </button>
-          <button
-            type="button"
-            onClick={handleLimpar}
+          <button type="button" onClick={handleLimpar}
             className="px-6 py-3.5 rounded-xl border border-white/10 text-gray-400 hover:text-white hover:border-white/20 transition-all text-sm font-medium"
           >
             Limpar
@@ -275,7 +218,6 @@ export default function SeguroDesemprego() {
       {resultado && (
         <div id="resultado" className="space-y-4">
           {!resultado.temDireito ? (
-            /* Sem direito */
             <div className="bg-rose-500/5 border border-rose-500/10 rounded-2xl p-6 sm:p-8 text-center">
               <div className="text-4xl mb-3">😔</div>
               <h3 className="text-white font-bold text-xl mb-2">Sem direito ao seguro-desemprego</h3>
@@ -283,7 +225,6 @@ export default function SeguroDesemprego() {
             </div>
           ) : (
             <>
-              {/* Total card */}
               <div className="bg-gradient-to-br from-emerald-500/10 to-emerald-600/5 border border-emerald-500/20 rounded-2xl p-6 sm:p-8 text-center">
                 <p className="text-emerald-400/80 text-sm font-medium mb-1 uppercase tracking-wider">Valor de cada parcela</p>
                 <p className="text-4xl sm:text-5xl font-extrabold text-white mb-2">
@@ -296,18 +237,15 @@ export default function SeguroDesemprego() {
                 </div>
               </div>
 
-              {/* Parcelas visuais */}
               <div className="bg-[#1a1a2e] border border-white/5 rounded-2xl p-6">
                 <h3 className="text-white font-bold mb-4">Suas parcelas</h3>
                 <div className="grid grid-cols-3 sm:grid-cols-5 gap-3">
                   {Array.from({ length: 5 }, (_, i) => (
-                    <div
-                      key={i}
-                      className={`rounded-xl p-3 text-center transition-all ${
-                        i < resultado.parcelas
+                    <div key={i}
+                      className={`rounded-xl p-3 text-center transition-all ${i < resultado.parcelas
                           ? 'bg-emerald-500/10 border border-emerald-500/20'
                           : 'bg-white/[0.02] border border-white/5 opacity-30'
-                      }`}
+                        }`}
                     >
                       <p className={`text-xs font-medium mb-1 ${i < resultado.parcelas ? 'text-emerald-400/70' : 'text-gray-600'}`}>
                         {i + 1}ª parcela
@@ -320,7 +258,6 @@ export default function SeguroDesemprego() {
                 </div>
               </div>
 
-              {/* Detalhamento */}
               <div className="bg-[#1a1a2e] border border-white/5 rounded-2xl overflow-hidden">
                 <div className="px-6 py-4 border-b border-white/5">
                   <h3 className="text-white font-bold">Detalhamento</h3>
@@ -345,7 +282,6 @@ export default function SeguroDesemprego() {
                 </div>
               </div>
 
-              {/* Info */}
               <div className="bg-amber-500/5 border border-amber-500/10 rounded-2xl px-6 py-4">
                 <p className="text-amber-400 text-sm">
                   ⚠️ O valor mínimo da parcela é de {formatarMoeda(TABELAS.seguroDesemprego.minimoParcelaValor)} (salário mínimo). O seguro-desemprego <strong>não tem descontos</strong> de INSS ou IR.
@@ -363,31 +299,32 @@ export default function SeguroDesemprego() {
             </p>
             <button
               type="button"
-              onClick={() => exportarSeguroDesempregoPDF(form, resultado)}
+              onClick={() => exportarSeguroDesempregoPDF(form, resultado, isPremium, sessao?.email)}
               className="inline-flex items-center gap-2 bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-400 hover:to-emerald-500 text-white font-semibold px-6 py-2.5 rounded-xl shadow-lg shadow-emerald-500/20 transition-all text-sm mb-4"
             >
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-4 h-4">
                 <path d="M10.75 2.75a.75.75 0 0 0-1.5 0v8.614L6.295 8.235a.75.75 0 1 0-1.09 1.03l4.25 4.5a.75.75 0 0 0 1.09 0l4.25-4.5a.75.75 0 0 0-1.09-1.03l-2.955 3.129V2.75Z" />
                 <path d="M3.5 12.75a.75.75 0 0 0-1.5 0v2.5A2.75 2.75 0 0 0 4.75 18h10.5A2.75 2.75 0 0 0 18 15.25v-2.5a.75.75 0 0 0-1.5 0v2.5c0 .69-.56 1.25-1.25 1.25H4.75c-.69 0-1.25-.56-1.25-1.25v-2.5Z" />
               </svg>
-              Baixar PDF Grátis
+              {isPremium ? 'Baixar PDF Premium' : 'Baixar PDF Grátis'}
             </button>
-            <div className="border-t border-white/10 pt-4 mt-2">
-              <p className="text-gray-500 text-xs mb-3">
-                ⭐ Quer ainda mais? Compare cenários, exporte Excel e acesse o histórico completo.
-              </p>
-              <Link
-                to="/premium"
-                className="inline-flex items-center gap-2 text-amber-400 hover:text-amber-300 font-medium text-sm transition-colors"
-              >
-                Conhecer o Premium
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" className="w-4 h-4">
-                  <path fillRule="evenodd" d="M2 8a.75.75 0 0 1 .75-.75h8.69L8.22 4.03a.75.75 0 0 1 1.06-1.06l4.5 4.5a.75.75 0 0 1 0 1.06l-4.5 4.5a.75.75 0 0 1-1.06-1.06l3.22-3.22H2.75A.75.75 0 0 1 2 8Z" clipRule="evenodd" />
-                </svg>
-              </Link>
-            </div>
+            {!isPremium && (
+              <div className="border-t border-white/10 pt-4 mt-2">
+                <p className="text-gray-500 text-xs mb-3">
+                  ⭐ Quer ainda mais? Compare cenários, exporte Excel e acesse o histórico completo.
+                </p>
+                <Link
+                  to="/premium"
+                  className="inline-flex items-center gap-2 text-amber-400 hover:text-amber-300 font-medium text-sm transition-colors"
+                >
+                  Conhecer o Premium
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" className="w-4 h-4">
+                    <path fillRule="evenodd" d="M2 8a.75.75 0 0 1 .75-.75h8.69L8.22 4.03a.75.75 0 0 1 1.06-1.06l4.5 4.5a.75.75 0 0 1 0 1.06l-4.5 4.5a.75.75 0 0 1-1.06-1.06l3.22-3.22H2.75A.75.75 0 0 1 2 8Z" clipRule="evenodd" />
+                  </svg>
+                </Link>
+              </div>
+            )}
           </div>
-
         </div>
       )}
     </div>

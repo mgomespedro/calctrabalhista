@@ -1,18 +1,20 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { calcularINSS, calcularIRRF, formatarMoeda, ANO, TABELAS } from '../utils/calculos'
+import { usePremium } from '../context/PremiumContext'
+import { ANO, calcularINSS, calcularIRRF, formatarMoeda } from '../utils/calculos'
 import { exportarFeriasPDF } from '../utils/exportarPDF'
 
 export default function Ferias() {
   const [form, setForm] = useState({
     salarioBruto: '',
-    tipoFerias: 'integrais', // integrais, proporcionais
+    tipoFerias: 'integrais',
     avosFerias: '12',
-    abonoPecuniario: false, // vender 10 dias
+    abonoPecuniario: false,
     dependentes: '0',
   })
   const [resultado, setResultado] = useState(null)
   const [erro, setErro] = useState('')
+  const { isPremium, sessao } = usePremium()
 
   function handleChange(e) {
     const { name, value, type, checked } = e.target
@@ -44,14 +46,12 @@ export default function Ferias() {
     const diasGozados = form.abonoPecuniario ? diasFerias - 10 : diasFerias
     const diasVendidos = form.abonoPecuniario ? 10 : 0
 
-    // Cálculo base das férias
     const valorBase = form.tipoFerias === 'integrais'
       ? bruto
       : (bruto / 12) * avos
 
     const tercoConstitucional = valorBase / 3
 
-    // Abono pecuniário (venda de 10 dias)
     let valorAbono = 0
     let tercoAbono = 0
     if (form.abonoPecuniario) {
@@ -59,15 +59,11 @@ export default function Ferias() {
       tercoAbono = valorAbono / 3
     }
 
-    // Total bruto
     const totalBruto = valorBase + tercoConstitucional + valorAbono + tercoAbono
-
-    // Descontos - INSS e IRRF incidem sobre férias gozadas + 1/3 (não sobre abono)
     const baseDesconto = valorBase + tercoConstitucional
     const inss = calcularINSS(baseDesconto)
     const baseIR = baseDesconto - inss
     const irrf = calcularIRRF(baseIR, dependentes)
-
     const totalDescontos = inss + irrf
     const totalLiquido = totalBruto - totalDescontos
 
@@ -131,11 +127,10 @@ export default function Ferias() {
               ].map(tipo => (
                 <label
                   key={tipo.value}
-                  className={`flex items-start gap-3 p-3 rounded-xl border cursor-pointer transition-all ${
-                    form.tipoFerias === tipo.value
+                  className={`flex items-start gap-3 p-3 rounded-xl border cursor-pointer transition-all ${form.tipoFerias === tipo.value
                       ? 'border-emerald-500/40 bg-emerald-500/5'
                       : 'border-white/5 bg-white/[0.02] hover:border-white/10'
-                  }`}
+                    }`}
                 >
                   <input
                     type="radio"
@@ -171,7 +166,7 @@ export default function Ferias() {
             />
           </div>
 
-          {/* Avos (só para proporcionais) */}
+          {/* Avos */}
           {form.tipoFerias === 'proporcionais' && (
             <div>
               <label className="block text-white text-sm font-semibold mb-2">Avos de férias (meses)</label>
@@ -181,7 +176,7 @@ export default function Ferias() {
                 onChange={handleChange}
                 className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-emerald-500/50 focus:ring-1 focus:ring-emerald-500/25 transition-all"
               >
-                {[1,2,3,4,5,6,7,8,9,10,11,12].map(n => (
+                {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map(n => (
                   <option key={n} value={n} className="bg-[#1a1a2e]">{n}/12 avos</option>
                 ))}
               </select>
@@ -220,14 +215,12 @@ export default function Ferias() {
           </div>
         </div>
 
-        {/* Error */}
         {erro && (
           <div className="mt-4 bg-rose-500/10 border border-rose-500/20 rounded-xl px-4 py-3">
             <p className="text-rose-400 text-sm">{erro}</p>
           </div>
         )}
 
-        {/* Buttons */}
         <div className="mt-6 flex flex-col sm:flex-row gap-3">
           <button
             type="submit"
@@ -272,16 +265,13 @@ export default function Ferias() {
             </div>
             <div className="divide-y divide-white/5">
               <div className="px-6 py-3.5 flex items-center justify-between">
-                <div>
-                  <span className="text-gray-300 text-sm">Férias {resultado.tipoFerias === 'integrais' ? '(30 dias)' : `proporcionais (${resultado.avos}/12)`}</span>
-                </div>
+                <span className="text-gray-300 text-sm">Férias {resultado.tipoFerias === 'integrais' ? '(30 dias)' : `proporcionais (${resultado.avos}/12)`}</span>
                 <span className="text-emerald-400 font-semibold text-sm tabular-nums">{formatarMoeda(resultado.valorBase)}</span>
               </div>
               <div className="px-6 py-3.5 flex items-center justify-between">
                 <span className="text-gray-300 text-sm">1/3 constitucional</span>
                 <span className="text-emerald-400 font-semibold text-sm tabular-nums">{formatarMoeda(resultado.tercoConstitucional)}</span>
               </div>
-
               {resultado.abono && (
                 <>
                   <div className="px-6 py-3.5 flex items-center justify-between">
@@ -294,7 +284,6 @@ export default function Ferias() {
                   </div>
                 </>
               )}
-
               <div className="px-6 py-3.5 flex items-center justify-between bg-white/[0.02]">
                 <span className="text-white font-bold text-sm">Total bruto</span>
                 <span className="text-white font-bold tabular-nums">{formatarMoeda(resultado.totalBruto)}</span>
@@ -345,31 +334,32 @@ export default function Ferias() {
             </p>
             <button
               type="button"
-              onClick={() => exportarFeriasPDF(form, resultado)}
+              onClick={() => exportarFeriasPDF(form, resultado, isPremium, sessao?.email)}
               className="inline-flex items-center gap-2 bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-400 hover:to-emerald-500 text-white font-semibold px-6 py-2.5 rounded-xl shadow-lg shadow-emerald-500/20 transition-all text-sm mb-4"
             >
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-4 h-4">
                 <path d="M10.75 2.75a.75.75 0 0 0-1.5 0v8.614L6.295 8.235a.75.75 0 1 0-1.09 1.03l4.25 4.5a.75.75 0 0 0 1.09 0l4.25-4.5a.75.75 0 0 0-1.09-1.03l-2.955 3.129V2.75Z" />
                 <path d="M3.5 12.75a.75.75 0 0 0-1.5 0v2.5A2.75 2.75 0 0 0 4.75 18h10.5A2.75 2.75 0 0 0 18 15.25v-2.5a.75.75 0 0 0-1.5 0v2.5c0 .69-.56 1.25-1.25 1.25H4.75c-.69 0-1.25-.56-1.25-1.25v-2.5Z" />
               </svg>
-              Baixar PDF Grátis
+              {isPremium ? 'Baixar PDF Premium' : 'Baixar PDF Grátis'}
             </button>
-            <div className="border-t border-white/10 pt-4 mt-2">
-              <p className="text-gray-500 text-xs mb-3">
-                ⭐ Quer ainda mais? Compare cenários, exporte Excel e acesse o histórico completo.
-              </p>
-              <Link
-                to="/premium"
-                className="inline-flex items-center gap-2 text-amber-400 hover:text-amber-300 font-medium text-sm transition-colors"
-              >
-                Conhecer o Premium
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" className="w-4 h-4">
-                  <path fillRule="evenodd" d="M2 8a.75.75 0 0 1 .75-.75h8.69L8.22 4.03a.75.75 0 0 1 1.06-1.06l4.5 4.5a.75.75 0 0 1 0 1.06l-4.5 4.5a.75.75 0 0 1-1.06-1.06l3.22-3.22H2.75A.75.75 0 0 1 2 8Z" clipRule="evenodd" />
-                </svg>
-              </Link>
-            </div>
+            {!isPremium && (
+              <div className="border-t border-white/10 pt-4 mt-2">
+                <p className="text-gray-500 text-xs mb-3">
+                  ⭐ Quer ainda mais? Compare cenários, exporte Excel e acesse o histórico completo.
+                </p>
+                <Link
+                  to="/premium"
+                  className="inline-flex items-center gap-2 text-amber-400 hover:text-amber-300 font-medium text-sm transition-colors"
+                >
+                  Conhecer o Premium
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" className="w-4 h-4">
+                    <path fillRule="evenodd" d="M2 8a.75.75 0 0 1 .75-.75h8.69L8.22 4.03a.75.75 0 0 1 1.06-1.06l4.5 4.5a.75.75 0 0 1 0 1.06l-4.5 4.5a.75.75 0 0 1-1.06-1.06l3.22-3.22H2.75A.75.75 0 0 1 2 8Z" clipRule="evenodd" />
+                  </svg>
+                </Link>
+              </div>
+            )}
           </div>
-
         </div>
       )}
     </div>

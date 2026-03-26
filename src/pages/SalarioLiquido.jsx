@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import { usePremium } from '../context/PremiumContext'
 import { ANO, calcularINSS, calcularIRRF, formatarMoeda, TABELAS } from '../utils/calculos'
 import { exportarSalarioLiquidoPDF } from '../utils/exportarPDF'
 
@@ -11,6 +12,7 @@ export default function SalarioLiquido() {
   })
   const [resultado, setResultado] = useState(null)
   const [erro, setErro] = useState('')
+  const { isPremium, sessao } = usePremium()
 
   function handleChange(e) {
     const { name, value } = e.target
@@ -31,25 +33,14 @@ export default function SalarioLiquido() {
     const dependentes = parseInt(form.dependentes) || 0
     const outrasDeducoes = parseFloat(form.outrasDeducoes) || 0
 
-    // 1. INSS
     const inss = calcularINSS(bruto)
-
-    // 2. Base de cálculo do IR = bruto - INSS - dependentes - outras deduções
     const baseIR = bruto - inss
     const irrf = calcularIRRF(baseIR, dependentes)
-
-    // 3. Total descontos
     const totalDescontos = inss + irrf + outrasDeducoes
-
-    // 4. Salário líquido
     const liquido = bruto - totalDescontos
-
-    // 5. Alíquota efetiva
     const aliquotaEfetivaINSS = bruto > 0 ? (inss / bruto) * 100 : 0
     const aliquotaEfetivaIR = bruto > 0 ? (irrf / bruto) * 100 : 0
     const aliquotaEfetivaTotal = bruto > 0 ? (totalDescontos / bruto) * 100 : 0
-
-    // 6. Verificar se beneficia da isenção 2026
     const baseCalculoIR = baseIR - (dependentes * 189.59)
     const beneficioIsencao = baseCalculoIR <= 5000
     const beneficioReducao = baseCalculoIR > 5000 && baseCalculoIR <= 7350
@@ -112,8 +103,6 @@ export default function SalarioLiquido() {
       {/* Form */}
       <form onSubmit={handleCalcular} className="bg-[#1a1a2e] border border-white/5 rounded-2xl p-6 sm:p-8 mb-6">
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
-
-          {/* Salário Bruto */}
           <div>
             <label className="block text-white text-sm font-semibold mb-2">Salário Bruto (R$)</label>
             <input
@@ -127,8 +116,6 @@ export default function SalarioLiquido() {
               className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-600 focus:outline-none focus:border-emerald-500/50 focus:ring-1 focus:ring-emerald-500/25 transition-all"
             />
           </div>
-
-          {/* Dependentes */}
           <div>
             <label className="block text-white text-sm font-semibold mb-2">Dependentes (IR)</label>
             <input
@@ -141,8 +128,6 @@ export default function SalarioLiquido() {
               className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-emerald-500/50 focus:ring-1 focus:ring-emerald-500/25 transition-all"
             />
           </div>
-
-          {/* Outras deduções */}
           <div>
             <label className="block text-white text-sm font-semibold mb-2">
               Outros descontos (R$)
@@ -161,14 +146,12 @@ export default function SalarioLiquido() {
           </div>
         </div>
 
-        {/* Error */}
         {erro && (
           <div className="mt-4 bg-rose-500/10 border border-rose-500/20 rounded-xl px-4 py-3">
             <p className="text-rose-400 text-sm">{erro}</p>
           </div>
         )}
 
-        {/* Buttons */}
         <div className="mt-6 flex flex-col sm:flex-row gap-3">
           <button
             type="submit"
@@ -205,7 +188,6 @@ export default function SalarioLiquido() {
             </div>
           </div>
 
-          {/* Isenção info */}
           {resultado.beneficioIsencao && (
             <div className="bg-emerald-500/5 border border-emerald-500/10 rounded-2xl px-6 py-4">
               <p className="text-emerald-400 text-sm text-center">
@@ -287,7 +269,7 @@ export default function SalarioLiquido() {
             </div>
           </div>
 
-          {/* Exportar PDF + Premium CTA — idêntico ao padrão da Rescisão */}
+          {/* Exportar PDF + Premium CTA */}
           <div className="bg-gradient-to-r from-amber-500/10 to-orange-500/10 border border-amber-500/20 rounded-2xl p-6 text-center">
             <div className="text-2xl mb-2">📄</div>
             <h3 className="text-white font-bold text-lg mb-1">Exportar Resultado em PDF</h3>
@@ -295,32 +277,32 @@ export default function SalarioLiquido() {
               Baixe um relatório profissional com todos os detalhes do seu salário líquido.
             </p>
             <button
-              type="button"
-              onClick={() => exportarSalarioLiquidoPDF(form, resultado)}
+              onClick={() => exportarSalarioLiquidoPDF(form, resultado, isPremium, sessao?.email)}
               className="inline-flex items-center gap-2 bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-400 hover:to-emerald-500 text-white font-semibold px-6 py-2.5 rounded-xl shadow-lg shadow-emerald-500/20 transition-all text-sm mb-4"
             >
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-4 h-4">
                 <path d="M10.75 2.75a.75.75 0 0 0-1.5 0v8.614L6.295 8.235a.75.75 0 1 0-1.09 1.03l4.25 4.5a.75.75 0 0 0 1.09 0l4.25-4.5a.75.75 0 0 0-1.09-1.03l-2.955 3.129V2.75Z" />
                 <path d="M3.5 12.75a.75.75 0 0 0-1.5 0v2.5A2.75 2.75 0 0 0 4.75 18h10.5A2.75 2.75 0 0 0 18 15.25v-2.5a.75.75 0 0 0-1.5 0v2.5c0 .69-.56 1.25-1.25 1.25H4.75c-.69 0-1.25-.56-1.25-1.25v-2.5Z" />
               </svg>
-              Baixar PDF Grátis
+              {isPremium ? 'Baixar PDF Premium' : 'Baixar PDF Grátis'}
             </button>
-            <div className="border-t border-white/10 pt-4 mt-2">
-              <p className="text-gray-500 text-xs mb-3">
-                ⭐ Quer ainda mais? Compare cenários, exporte Excel e acesse o histórico completo.
-              </p>
-              <Link
-                to="/premium"
-                className="inline-flex items-center gap-2 text-amber-400 hover:text-amber-300 font-medium text-sm transition-colors"
-              >
-                Conhecer o Premium
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" className="w-4 h-4">
-                  <path fillRule="evenodd" d="M2 8a.75.75 0 0 1 .75-.75h8.69L8.22 4.03a.75.75 0 0 1 1.06-1.06l4.5 4.5a.75.75 0 0 1 0 1.06l-4.5 4.5a.75.75 0 0 1-1.06-1.06l3.22-3.22H2.75A.75.75 0 0 1 2 8Z" clipRule="evenodd" />
-                </svg>
-              </Link>
-            </div>
+            {!isPremium && (
+              <div className="border-t border-white/10 pt-4 mt-2">
+                <p className="text-gray-500 text-xs mb-3">
+                  ⭐ Quer ainda mais? Veja a evolução anual do salário e compare cenários no Premium.
+                </p>
+                <Link
+                  to="/premium"
+                  className="inline-flex items-center gap-2 text-amber-400 hover:text-amber-300 font-medium text-sm transition-colors"
+                >
+                  Conhecer o Premium
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" className="w-4 h-4">
+                    <path fillRule="evenodd" d="M2 8a.75.75 0 0 1 .75-.75h8.69L8.22 4.03a.75.75 0 0 1 1.06-1.06l4.5 4.5a.75.75 0 0 1 0 1.06l-4.5 4.5a.75.75 0 0 1-1.06-1.06l3.22-3.22H2.75A.75.75 0 0 1 2 8Z" clipRule="evenodd" />
+                  </svg>
+                </Link>
+              </div>
+            )}
           </div>
-
         </div>
       )}
     </div>

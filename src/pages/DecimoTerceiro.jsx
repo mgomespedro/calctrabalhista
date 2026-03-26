@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { calcularINSS, calcularIRRF, formatarMoeda, ANO, TABELAS } from '../utils/calculos'
+import { usePremium } from '../context/PremiumContext'
+import { ANO, calcularINSS, calcularIRRF, formatarMoeda } from '../utils/calculos'
 import { exportarDecimoTerceiroPDF } from '../utils/exportarPDF'
 
 export default function DecimoTerceiro() {
@@ -11,6 +12,7 @@ export default function DecimoTerceiro() {
   })
   const [resultado, setResultado] = useState(null)
   const [erro, setErro] = useState('')
+  const { isPremium, sessao } = usePremium()
 
   function handleChange(e) {
     const { name, value } = e.target
@@ -35,24 +37,12 @@ export default function DecimoTerceiro() {
     }
 
     const dependentes = parseInt(form.dependentes) || 0
-
-    // Valor total do 13º (proporcional)
     const valorTotal = (bruto / 12) * meses
-
-    // 1ª PARCELA — paga até 30/novembro — sem descontos
     const primeiraParcela = valorTotal / 2
-
-    // 2ª PARCELA — paga até 20/dezembro — com descontos sobre o TOTAL
-    // INSS incide sobre o valor total do 13º
     const inss = calcularINSS(valorTotal)
-
-    // IRRF incide sobre (total - INSS)
     const baseIR = valorTotal - inss
     const irrf = calcularIRRF(baseIR, dependentes)
-
-    // 2ª parcela = total - 1ª parcela - descontos
     const segundaParcela = valorTotal - primeiraParcela - inss - irrf
-
     const totalLiquido = primeiraParcela + segundaParcela
 
     setResultado({
@@ -98,8 +88,6 @@ export default function DecimoTerceiro() {
       {/* Form */}
       <form onSubmit={handleCalcular} className="bg-[#1a1a2e] border border-white/5 rounded-2xl p-6 sm:p-8 mb-6">
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
-
-          {/* Salário Bruto */}
           <div>
             <label className="block text-white text-sm font-semibold mb-2">Salário Bruto (R$)</label>
             <input
@@ -113,8 +101,6 @@ export default function DecimoTerceiro() {
               className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-600 focus:outline-none focus:border-emerald-500/50 focus:ring-1 focus:ring-emerald-500/25 transition-all"
             />
           </div>
-
-          {/* Meses trabalhados */}
           <div>
             <label className="block text-white text-sm font-semibold mb-2">Meses trabalhados no ano</label>
             <select
@@ -123,13 +109,11 @@ export default function DecimoTerceiro() {
               onChange={handleChange}
               className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-emerald-500/50 focus:ring-1 focus:ring-emerald-500/25 transition-all"
             >
-              {[1,2,3,4,5,6,7,8,9,10,11,12].map(n => (
+              {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map(n => (
                 <option key={n} value={n} className="bg-[#1a1a2e]">{n} {n === 1 ? 'mês' : 'meses'} ({n}/12)</option>
               ))}
             </select>
           </div>
-
-          {/* Dependentes */}
           <div>
             <label className="block text-white text-sm font-semibold mb-2">Dependentes (IR)</label>
             <input
@@ -144,14 +128,12 @@ export default function DecimoTerceiro() {
           </div>
         </div>
 
-        {/* Error */}
         {erro && (
           <div className="mt-4 bg-rose-500/10 border border-rose-500/20 rounded-xl px-4 py-3">
             <p className="text-rose-400 text-sm">{erro}</p>
           </div>
         )}
 
-        {/* Buttons */}
         <div className="mt-6 flex flex-col sm:flex-row gap-3">
           <button
             type="submit"
@@ -192,7 +174,6 @@ export default function DecimoTerceiro() {
 
           {/* Parcelas */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {/* 1ª Parcela */}
             <div className="bg-[#1a1a2e] border border-white/5 rounded-2xl p-6">
               <div className="flex items-center gap-2 mb-3">
                 <div className="w-8 h-8 bg-emerald-500/15 rounded-lg flex items-center justify-center text-emerald-400 font-bold text-sm">1ª</div>
@@ -204,8 +185,6 @@ export default function DecimoTerceiro() {
               <p className="text-2xl font-extrabold text-emerald-400">{formatarMoeda(resultado.primeiraParcela)}</p>
               <p className="text-gray-500 text-xs mt-1">Sem descontos</p>
             </div>
-
-            {/* 2ª Parcela */}
             <div className="bg-[#1a1a2e] border border-white/5 rounded-2xl p-6">
               <div className="flex items-center gap-2 mb-3">
                 <div className="w-8 h-8 bg-amber-500/15 rounded-lg flex items-center justify-center text-amber-400 font-bold text-sm">2ª</div>
@@ -253,7 +232,6 @@ export default function DecimoTerceiro() {
             </div>
           </div>
 
-          {/* Info */}
           <div className="bg-blue-500/5 border border-blue-500/10 rounded-2xl px-6 py-4">
             <p className="text-blue-400 text-sm">
               ℹ️ A <strong>1ª parcela</strong> é paga sem nenhum desconto. Na <strong>2ª parcela</strong>, o INSS e o IRRF incidem sobre o valor total do 13º, e a 1ª parcela já paga é descontada.
@@ -269,31 +247,32 @@ export default function DecimoTerceiro() {
             </p>
             <button
               type="button"
-              onClick={() => exportarDecimoTerceiroPDF(form, resultado)}
+              onClick={() => exportarDecimoTerceiroPDF(form, resultado, isPremium, sessao?.email)}
               className="inline-flex items-center gap-2 bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-400 hover:to-emerald-500 text-white font-semibold px-6 py-2.5 rounded-xl shadow-lg shadow-emerald-500/20 transition-all text-sm mb-4"
             >
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-4 h-4">
                 <path d="M10.75 2.75a.75.75 0 0 0-1.5 0v8.614L6.295 8.235a.75.75 0 1 0-1.09 1.03l4.25 4.5a.75.75 0 0 0 1.09 0l4.25-4.5a.75.75 0 0 0-1.09-1.03l-2.955 3.129V2.75Z" />
                 <path d="M3.5 12.75a.75.75 0 0 0-1.5 0v2.5A2.75 2.75 0 0 0 4.75 18h10.5A2.75 2.75 0 0 0 18 15.25v-2.5a.75.75 0 0 0-1.5 0v2.5c0 .69-.56 1.25-1.25 1.25H4.75c-.69 0-1.25-.56-1.25-1.25v-2.5Z" />
               </svg>
-              Baixar PDF Grátis
+              {isPremium ? 'Baixar PDF Premium' : 'Baixar PDF Grátis'}
             </button>
-            <div className="border-t border-white/10 pt-4 mt-2">
-              <p className="text-gray-500 text-xs mb-3">
-                ⭐ Quer ainda mais? Compare cenários, exporte Excel e acesse o histórico completo.
-              </p>
-              <Link
-                to="/premium"
-                className="inline-flex items-center gap-2 text-amber-400 hover:text-amber-300 font-medium text-sm transition-colors"
-              >
-                Conhecer o Premium
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" className="w-4 h-4">
-                  <path fillRule="evenodd" d="M2 8a.75.75 0 0 1 .75-.75h8.69L8.22 4.03a.75.75 0 0 1 1.06-1.06l4.5 4.5a.75.75 0 0 1 0 1.06l-4.5 4.5a.75.75 0 0 1-1.06-1.06l3.22-3.22H2.75A.75.75 0 0 1 2 8Z" clipRule="evenodd" />
-                </svg>
-              </Link>
-            </div>
+            {!isPremium && (
+              <div className="border-t border-white/10 pt-4 mt-2">
+                <p className="text-gray-500 text-xs mb-3">
+                  ⭐ Quer ainda mais? Compare cenários, exporte Excel e acesse o histórico completo.
+                </p>
+                <Link
+                  to="/premium"
+                  className="inline-flex items-center gap-2 text-amber-400 hover:text-amber-300 font-medium text-sm transition-colors"
+                >
+                  Conhecer o Premium
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" className="w-4 h-4">
+                    <path fillRule="evenodd" d="M2 8a.75.75 0 0 1 .75-.75h8.69L8.22 4.03a.75.75 0 0 1 1.06-1.06l4.5 4.5a.75.75 0 0 1 0 1.06l-4.5 4.5a.75.75 0 0 1-1.06-1.06l3.22-3.22H2.75A.75.75 0 0 1 2 8Z" clipRule="evenodd" />
+                  </svg>
+                </Link>
+              </div>
+            )}
           </div>
-
         </div>
       )}
     </div>
