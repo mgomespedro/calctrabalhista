@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import { Link } from 'react-router-dom'
 import { usePremium } from '../context/PremiumContext'
 
 export default function ModalLoginPremium({ onFechar }) {
