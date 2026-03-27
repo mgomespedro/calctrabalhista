@@ -21,15 +21,17 @@ function criarHeader(doc, titulo, isPremium = false) {
     doc.text('CalcTrabalhista', 14, 18)
     doc.setFontSize(10)
     doc.setFont('helvetica', 'normal')
-    doc.text(`${titulo} — Tabelas ${ano}`, 14, 28)
+    doc.text(`${titulo} | Tabelas ${ano}`, 14, 28)
 
     if (isPremium) {
         doc.setFillColor(245, 158, 11)
-        doc.roundedRect(158, 8, 38, 12, 2, 2, 'F')
+        doc.rect(156, 7, 42, 14, 'F')
         doc.setTextColor(0, 0, 0)
-        doc.setFontSize(8)
+        doc.setFontSize(7)
         doc.setFont('helvetica', 'bold')
-        doc.text('★ PREMIUM', 177, 16, { align: 'center' })
+        doc.text('PREMIUM', 177, 15, { align: 'center' })
+        doc.setFontSize(6)
+        doc.text('ASSINANTE', 177, 19, { align: 'center' })
     }
 }
 
@@ -73,7 +75,7 @@ function adicionarMarcaDagua(doc) {
 
 function criarTotalDestacado(doc, posY, label, valor) {
     doc.setFillColor(16, 185, 129)
-    doc.roundedRect(14, posY, 182, 20, 3, 3, 'F')
+    doc.rect(14, posY, 182, 20, 'F')
     doc.setTextColor(255, 255, 255)
     doc.setFontSize(11)
     doc.setFont('helvetica', 'bold')
@@ -172,66 +174,81 @@ function simularLiquidoTipo(tipo, salarioBruto, anosServico, saldoFGTS, dependen
  * Desenha um gráfico de barras horizontais no PDF (sem biblioteca extra)
  */
 function desenharGraficoBarras(doc, posY, dados) {
-    // dados = [{label, valor, cor:[r,g,b]}, ...]
     const maxValor = Math.max(...dados.map(d => d.valor))
-    const larguraMax = 120
-    const alturaLinha = 14
+    const larguraMaxBarra = 100
+    const alturaLinha = 12
+    const espacamento = 5
     const xLabel = 14
-    const xBarra = 72
-    const xValor = 197
+    const larguraLabel = 40
+    const xBarra = xLabel + larguraLabel + 4
+    const xValor = xBarra + larguraMaxBarra + 4
 
     dados.forEach((item, i) => {
-        const y = posY + i * (alturaLinha + 4)
-        const larguraBarra = maxValor > 0 ? (item.valor / maxValor) * larguraMax : 0
+        const y = posY + i * (alturaLinha + espacamento)
+        const larguraBarra = maxValor > 0 ? Math.max(2, (item.valor / maxValor) * larguraMaxBarra) : 2
 
-        // Label
-        doc.setFontSize(9)
+        // Label à esquerda
+        doc.setFontSize(8)
         doc.setFont('helvetica', 'bold')
         doc.setTextColor(60, 60, 60)
-        doc.text(item.label, xLabel, y + alturaLinha / 2 + 2)
+        // Truncar label se necessário
+        const labelText = doc.splitTextToSize(item.label, larguraLabel)
+        doc.text(labelText[0], xLabel, y + alturaLinha / 2 + 2)
 
-        // Fundo da barra (cinza claro)
-        doc.setFillColor(230, 230, 230)
-        doc.roundedRect(xBarra, y + 2, larguraMax, alturaLinha - 4, 2, 2, 'F')
+        // Fundo da barra (cinza muito claro)
+        doc.setFillColor(235, 235, 235)
+        doc.rect(xBarra, y + 2, larguraMaxBarra, alturaLinha - 4, 'F')
 
         // Barra colorida
-        if (larguraBarra > 0) {
-            doc.setFillColor(...item.cor)
-            doc.roundedRect(xBarra, y + 2, larguraBarra, alturaLinha - 4, 2, 2, 'F')
-        }
+        doc.setFillColor(...item.cor)
+        doc.rect(xBarra, y + 2, larguraBarra, alturaLinha - 4, 'F')
 
-        // Valor à direita
-        doc.setFontSize(9)
+        // Valor à direita da barra
+        doc.setFontSize(8.5)
         doc.setFont('helvetica', 'bold')
         doc.setTextColor(...item.cor)
-        doc.text(formatarMoedaPDF(item.valor), xValor, y + alturaLinha / 2 + 2, { align: 'right' })
+        doc.text(formatarMoedaPDF(item.valor), xValor, y + alturaLinha / 2 + 2)
     })
 
-    return posY + dados.length * (alturaLinha + 4) + 4
+    return posY + dados.length * (alturaLinha + espacamento) + 4
 }
 
 /**
- * Desenha caixa de destaque com título e texto
+ * Desenha caixa de destaque com título e linhas de texto
  */
 function desenharCaixa(doc, posY, titulo, linhas, corFundo, corTexto) {
-    const padding = 5
-    const alturaLinha = 6
-    const altura = padding * 2 + alturaLinha + linhas.length * alturaLinha + 2
+    const margemEsq = 14
+    const largura = 182
+    const paddingH = 6
+    const paddingV = 5
+    const altTitulo = 7
+    const altLinha = 6
+    const altura = paddingV + altTitulo + paddingV / 2 + linhas.length * altLinha + paddingV
 
+    // Fundo
     doc.setFillColor(...corFundo)
-    doc.roundedRect(14, posY, 182, altura, 3, 3, 'F')
+    doc.rect(margemEsq, posY, largura, altura, 'F')
 
+    // Barra lateral esquerda decorativa
+    doc.setFillColor(...corTexto)
+    doc.rect(margemEsq, posY, 3, altura, 'F')
+
+    // Título
     doc.setTextColor(...corTexto)
     doc.setFontSize(9)
     doc.setFont('helvetica', 'bold')
-    doc.text(titulo, 14 + padding, posY + padding + alturaLinha)
+    doc.text(titulo, margemEsq + paddingH + 3, posY + paddingV + altTitulo - 1)
 
+    // Linhas
     doc.setFont('helvetica', 'normal')
+    doc.setFontSize(8.5)
     linhas.forEach((linha, i) => {
-        doc.text(linha, 14 + padding, posY + padding + alturaLinha * 2 + i * alturaLinha + 1)
+        const yLinha = posY + paddingV + altTitulo + paddingV / 2 + i * altLinha + 1
+        const linhasQuebradas = doc.splitTextToSize(linha, largura - paddingH * 2 - 3)
+        doc.text(linhasQuebradas[0], margemEsq + paddingH + 3, yLinha)
     })
 
-    return posY + altura + 4
+    return posY + altura + 5
 }
 
 // =====================================================
@@ -365,7 +382,7 @@ export function exportarRescisaoPDF(dados, resultado, isPremium = false, email =
     // =========================================================
     if (isPremium) {
         doc.addPage()
-        criarHeader(doc, 'Análise Premium — Rescisão', true)
+        criarHeader(doc, 'Analise Premium - Rescisao', true)
 
         posY = 45
 
@@ -417,14 +434,14 @@ export function exportarRescisaoPDF(dados, resultado, isPremium = false, email =
         const dRestantes = Math.round((mesesComFGTS - mInteiros) * 30)
 
         const linhasAnalise = [
-            `► Rescisão liquida: equivale a ${mesesInteiros} ${mesesInteiros === 1 ? 'mês' : 'meses'}${diasRestantes > 0 ? ' e ' + diasRestantes + ' dias' : ''} de salário`,
+            `- Rescisao liquida: equivale a ${mesesInteiros} ${mesesInteiros === 1 ? 'mes' : 'meses'}${diasRestantes > 0 ? ' e ' + diasRestantes + ' dias' : ''} de salario`,
         ]
         if (resultado.fgts && resultado.fgts.podeSacar && resultado.fgts.totalFGTS > 0) {
-            linhasAnalise.push(`► Com FGTS + Multa (${formatarMoedaPDF(resultado.fgts.totalFGTS)}): total de ${formatarMoedaPDF(totalGeralComFGTS)}`)
-            linhasAnalise.push(`   Equivale a ${mInteiros} ${mInteiros === 1 ? 'mês' : 'meses'}${dRestantes > 0 ? ' e ' + dRestantes + ' dias' : ''} de salário`)
+            linhasAnalise.push(`- Com FGTS + Multa (${formatarMoedaPDF(resultado.fgts.totalFGTS)}): total de ${formatarMoedaPDF(totalGeralComFGTS)}`)
+            linhasAnalise.push(`  Equivale a ${mInteiros} ${mInteiros === 1 ? 'mes' : 'meses'}${dRestantes > 0 ? ' e ' + dRestantes + ' dias' : ''} de salario`)
         }
-        linhasAnalise.push('► Prazo legal para pagamento: até 10 dias corridos após o último dia trabalhado')
-        linhasAnalise.push('► Guarde o Termo de Rescisão (TRCT) — é o seu comprovante legal')
+        linhasAnalise.push('- Prazo legal: ate 10 dias corridos apos o ultimo dia trabalhado')
+        linhasAnalise.push('- Guarde o Termo de Rescisao (TRCT) - e o seu comprovante legal')
 
         posY = desenharCaixa(doc, posY, 'Equivalência e Prazos', linhasAnalise, [240, 253, 244], [21, 128, 61])
         posY += 4
@@ -437,7 +454,7 @@ export function exportarRescisaoPDF(dados, resultado, isPremium = false, email =
         doc.setFontSize(8)
         doc.setFont('helvetica', 'italic')
         doc.setTextColor(120, 120, 120)
-        doc.text('(Simulação com base no seu salário e tempo de serviço — avos médios)', 14, posY + 5)
+        doc.text('(Simulacao com base no salario e tempo de servico - avos medios)', 14, posY + 5)
         posY += 10
 
         const anosServico = calcularAnosServicoPDF(dados.dataAdmissao, dados.dataDemissao)
@@ -451,7 +468,7 @@ export function exportarRescisaoPDF(dados, resultado, isPremium = false, email =
         const tipoActual = dados.tipoRescisao
 
         function marcaActual(tipo) {
-            return tipo === tipoActual ? ' ◄ SEU CASO' : ''
+            return tipo === tipoActual ? ' << SEU CASO' : ''
         }
 
         const comparativoHead = [['', 'Demissão s/ Justa Causa', 'Acordo Mútuo', 'Pedido de Demissão']]
@@ -476,9 +493,9 @@ export function exportarRescisaoPDF(dados, resultado, isPremium = false, email =
             ],
             [
                 'Seguro-Desemprego',
-                '✔ Tem direito',
-                '✘ Não tem direito',
-                '✘ Não tem direito',
+                'SIM - Tem direito',
+                'NAO - Sem direito',
+                'NAO - Sem direito',
             ],
             [
                 'Multa FGTS',
@@ -524,14 +541,14 @@ export function exportarRescisaoPDF(dados, resultado, isPremium = false, email =
         // PÁGINA 3 — PRÓXIMOS PASSOS
         // =========================================================
         doc.addPage()
-        criarHeader(doc, 'Análise Premium — Próximos Passos', true)
+        criarHeader(doc, 'Analise Premium - Proximos Passos', true)
 
         posY = 45
 
         doc.setFontSize(13)
         doc.setFont('helvetica', 'bold')
         doc.setTextColor(16, 185, 129)
-        doc.text('Próximos Passos — O Que Fazer Agora?', 14, posY)
+        doc.text('Proximos Passos - O Que Fazer Agora?', 14, posY)
         posY += 8
 
         doc.setFontSize(8)
@@ -660,7 +677,7 @@ export function exportarRescisaoPDF(dados, resultado, isPremium = false, email =
                 linhas: [
                     'Ao pedir demissão, você deve cumprir o aviso prévio ou a empresa pode descontá-lo.',
                     'Se a empresa dispensar o aviso, exija por escrito (e-mail ou carta assinada).',
-                    'O desconto do aviso pode ser significativo — calcule antes de decidir.',
+                    'O desconto do aviso pode ser significativo - calcule antes de decidir.',
                 ],
             })
             passos.push({
@@ -670,7 +687,7 @@ export function exportarRescisaoPDF(dados, resultado, isPremium = false, email =
                 linhas: [
                     'Confira: saldo de salário, férias proporcionais + 1/3 e 13º proporcional.',
                     'No pedido de demissão NÃO há multa de FGTS e NÃO há saque do fundo.',
-                    'O saldo do FGTS fica bloqueado — só disponível para situações específicas.',
+                    'O saldo do FGTS fica bloqueado - so disponivel para situacoes especificas.',
                 ],
             })
             passos.push({
@@ -697,7 +714,7 @@ export function exportarRescisaoPDF(dados, resultado, isPremium = false, email =
                 titulo: 'Conteste se a Justa Causa For Indevida',
                 cor: [239, 68, 68],
                 linhas: [
-                    'A justa causa é a rescisão mais prejudicial ao trabalhador — perde quase todos os direitos.',
+                    'A justa causa e a rescisao mais prejudicial ao trabalhador - perde quase todos os direitos.',
                     'Se você acredita que a causa é injusta, consulte um advogado trabalhista imediatamente.',
                     'Você tem até 2 anos após a rescisão para entrar com reclamação na Justiça do Trabalho.',
                 ],
@@ -709,7 +726,7 @@ export function exportarRescisaoPDF(dados, resultado, isPremium = false, email =
                 linhas: [
                     'Na justa causa você recebe apenas: saldo de salário dos dias trabalhados.',
                     'Não há: aviso prévio, férias proporcionais, 13º proporcional, FGTS, seguro-desemprego.',
-                    'As férias vencidas (se houver) devem ser pagas — isso é um direito irrenunciável.',
+                    'As ferias vencidas (se houver) devem ser pagas - e um direito irrenunciavel.',
                 ],
             })
             passos.push({
@@ -739,7 +756,7 @@ export function exportarRescisaoPDF(dados, resultado, isPremium = false, email =
             const alturaEstimada = 12 + passo.linhas.length * 6 + 12
             if (posY + alturaEstimada > 270) {
                 doc.addPage()
-                criarHeader(doc, 'Análise Premium — Próximos Passos', true)
+                criarHeader(doc, 'Analise Premium - Proximos Passos', true)
                 posY = 45
             }
 
@@ -780,7 +797,7 @@ export function exportarRescisaoPDF(dados, resultado, isPremium = false, email =
         // ── NOTA FINAL ──
         if (posY + 20 > 270) {
             doc.addPage()
-            criarHeader(doc, 'Análise Premium — Próximos Passos', true)
+            criarHeader(doc, 'Analise Premium - Proximos Passos', true)
             posY = 45
         }
 
@@ -790,7 +807,7 @@ export function exportarRescisaoPDF(dados, resultado, isPremium = false, email =
             [
                 'Este relatório é um guia informativo. Para situações específicas ou contestações,',
                 'consulte sempre um advogado trabalhista ou o sindicato da sua categoria.',
-                'O CalcTrabalhista usa as tabelas oficiais de ' + new Date().getFullYear() + ' — verifique atualizações em calctrabalhista.vercel.app',
+                'O CalcTrabalhista usa as tabelas oficiais de ' + new Date().getFullYear() + ' - verifique atualizacoes em calctrabalhista.vercel.app',
             ],
             [254, 243, 199],
             [146, 64, 14]
@@ -991,10 +1008,10 @@ export function exportarDecimoTerceiroPDF(dados, resultado, isPremium = false, e
 
     const parcelas = [
         ['Valor bruto do 13º', formatarMoedaPDF(resultado.valorBruto)],
-        ['1ª Parcela (até 30/nov) — sem descontos', formatarMoedaPDF(resultado.primeiraParcela)],
+        ['1a Parcela (ate 30/nov) - sem descontos', formatarMoedaPDF(resultado.primeiraParcela)],
         ['INSS (sobre total)', '- ' + formatarMoedaPDF(resultado.inss)],
         ['IRRF (sobre total)', resultado.irrf === 0 ? 'Isento' : '- ' + formatarMoedaPDF(resultado.irrf)],
-        ['2ª Parcela (até 20/dez) — com descontos', formatarMoedaPDF(resultado.segundaParcela)],
+        ['2a Parcela (ate 20/dez) - com descontos', formatarMoedaPDF(resultado.segundaParcela)],
     ]
 
     autoTable(doc, {
